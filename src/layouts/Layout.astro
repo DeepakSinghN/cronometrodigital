@@ -1,23 +1,165 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import '../styles/global.css';
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+}
+
+const { 
+  title = "Cronometro Online Grátis | Cronômetro Digital com Voltas e Milissegundos", 
+  description = "Cronometro online grátis com precisão de milissegundos. Use o cronometro digital para estudo, esportes, cubo mágico, Pomodoro e muito mais. Funciona no celular e computador.",
+  canonicalPath = ""
+} = Astro.props;
+
+const canonicalUrl = `https://cronometrodigital.com${canonicalPath}`;
+---
+
+<!doctype html>
+<html lang="pt-BR" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Favicons & Web App Manifest -->
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="cronometro digital" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- SEO & Metadata (Portuguese) -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="cronometro, cronômetro, cronometro online, cronômetro online, cronometro digital, cronômetro digital, cronometro regressivo, cronometro de estudo, cronometro cubo magico, cronometro regressivo online, cronometro pomodoro, conometro, cronometro gratis" />
+    <meta name="author" content="Cronômetro Digital" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="language" content="pt-BR" />
+    
+    <!-- Geo Targeting: Brazil & Portuguese-speaking countries -->
+    <meta name="geo.region" content="BR" />
+    <meta name="geo.placename" content="Brasil" />
+    <meta name="geo.position" content="-14.235;-51.9253" />
+    <meta name="ICBM" content="-14.235, -51.9253" />
+    <link rel="canonical" href={canonicalUrl} />
+    
+    <!-- hreflang: Portuguese (all Portuguese-speaking countries) -->
+    <link rel="alternate" hreflang="pt" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-BR" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-PT" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-AO" href={canonicalUrl} />
+    <link rel="alternate" hreflang="pt-MZ" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+    
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Cronômetro Digital" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    
+    <!-- Schema.org Structured Data (Portuguese) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Cronômetro Digital",
+      "url": "https://cronometrodigital.com",
+      "description": "Cronômetro online grátis com precisão de milissegundos para estudo, esportes, Pomodoro, cubo mágico e muito mais.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "pt-BR",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
+      },
+      "featureList": [
+        "Cronômetro online com milissegundos",
+        "Registro de voltas",
+        "Modo tela cheia",
+        "Cronômetro de estudo Pomodoro",
+        "Cronômetro regressivo online",
+        "Exportar dados em CSV"
+      ]
+    }
+    </script>
+    
+    <!-- FAQ Schema (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "O cronômetro online é completamente gratuito?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim! O Cronômetro Digital é 100% gratuito, sem necessidade de cadastro, sem taxas de assinatura e sem anúncios intrusivos. Use o cronômetro online diretamente no navegador, a qualquer momento."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "O cronômetro continua funcionando se eu trocar de aba?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim! O motor do cronômetro calcula o tempo decorrido com base em timestamps do relógio do sistema (performance.now()), garantindo zero perda de precisão mesmo que a aba esteja em segundo plano ou minimizada."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Como exportar o histórico de voltas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Clique no botão Exportar CSV para baixar uma planilha com todos os números de volta, durações e tempos totais, ou use Copiar Voltas para colar o texto formatado rapidamente."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Como usar o cronômetro de estudo com a técnica Pomodoro?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Inicie o cronômetro de estudo, estude por 25 minutos, depois pressione L para registrar a volta (seu intervalo de estudo). Faça uma pausa de 5 minutos e repita. O cronômetro Pomodoro online é perfeito para rastrear seus ciclos de produtividade."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "O cronômetro funciona no celular?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim! O cronômetro digital é totalmente responsivo e funciona perfeitamente em smartphones Android e iPhone, além de tablets e computadores com qualquer navegador moderno."
+          }
+        }
+      ]
+    }
+    </script>
+    
+    <!-- Inline theme script to prevent flash of wrong theme -->
+    <script is:inline>
+      (function () {
+        const storedTheme = localStorage.getItem('cronometro_theme');
+        if (storedTheme === 'light') {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.style.setProperty('--led-color', '#555555');
+        } else {
+          document.documentElement.classList.add('dark');
+          document.documentElement.style.setProperty('--led-color', '#FF9500');
+        }
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col antialiased bg-[var(--bg-canvas)] text-[var(--text-ink)]">
+    <slot />
+  </body>
+</html>

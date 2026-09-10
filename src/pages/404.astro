@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="404 - Página Não Encontrada | Cronômetro Digital" description="A página que você está procurando não existe no Cronômetro Digital. Volte ao cronômetro online grátis.">
+  <Navbar />
+
+  <main class="w-full flex-1 flex flex-col items-center justify-center px-4 py-16 text-center select-none">
+    <div class="max-w-md flex flex-col items-center geist-card p-8 sm:p-12 shadow-2xl relative overflow-hidden">
+      <!-- Código de Erro 404 -->
+      <span class="font-mono-custom text-xs uppercase tracking-widest text-[var(--text-mute)] bg-[var(--bg-canvas)] px-3 py-1 rounded-full border border-[var(--border-hairline)] mb-4">
+        ERRO 404
+      </span>
+
+      <h1 class="text-7xl sm:text-9xl font-extrabold tracking-tighter font-digital text-[var(--led-color)] mb-2">
+        404
+      </h1>
+
+      <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-[var(--text-ink)] mb-3">
+        Página Não Encontrada
+      </h2>
+
+      <p class="text-xs sm:text-sm text-[var(--text-body)] leading-relaxed mb-8">
+        A página que você está procurando expirou ou foi movida. Vamos te colocar de volta no tempo e nas voltas!
+      </p>
+
+      <a 
+        href="/" 
+        class="px-6 py-3 rounded-full bg-[var(--text-ink)] text-[var(--bg-canvas)] font-bold text-sm hover:opacity-90 active:scale-95 transition-all shadow-md flex items-center gap-2"
+      >
+        <span>⏱️ Voltar ao Cronômetro</span>
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

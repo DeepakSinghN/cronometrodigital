@@ -1,0 +1,99 @@
+---
+---
+
+<!-- Fundo do Modal -->
+<div 
+  id="shortcuts-modal" 
+  class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 hidden"
+>
+  <!-- Caixa de Diálogo do Modal -->
+  <div class="geist-card w-full max-w-lg p-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-150">
+    
+    <!-- Botão Fechar -->
+    <button 
+      id="btn-close-modal"
+      type="button" 
+      class="absolute top-4 right-4 w-8 h-8 rounded-full border border-[var(--border-hairline)] bg-[var(--bg-canvas)] text-[var(--text-mute)] hover:text-[var(--text-ink)] flex items-center justify-center text-sm font-mono-custom focus:outline-none"
+    >
+      ✕
+    </button>
+
+    <div class="flex items-center gap-2 mb-4">
+      <span class="text-xl">⌨️</span>
+      <h3 class="text-lg font-bold tracking-tight text-[var(--text-ink)]">Atalhos de Teclado</h3>
+    </div>
+
+    <div class="space-y-2 font-mono-custom text-xs">
+      <div class="flex items-center justify-between p-2.5 rounded bg-[var(--bg-canvas)] border border-[var(--border-hairline)]">
+        <span class="text-[var(--text-body)]">Iniciar / Pausar Cronômetro</span>
+        <kbd class="px-2 py-1 rounded bg-[var(--bg-elevated)] border border-[var(--border-hairline)] font-bold text-[var(--text-ink)]">Espaço</kbd>
+      </div>
+
+      <div class="flex items-center justify-between p-2.5 rounded bg-[var(--bg-canvas)] border border-[var(--border-hairline)]">
+        <span class="text-[var(--text-body)]">Registrar Volta</span>
+        <kbd class="px-2 py-1 rounded bg-[var(--bg-elevated)] border border-[var(--border-hairline)] font-bold text-[var(--text-ink)]">L</kbd>
+      </div>
+
+      <div class="flex items-center justify-between p-2.5 rounded bg-[var(--bg-canvas)] border border-[var(--border-hairline)]">
+        <span class="text-[var(--text-body)]">Resetar Cronômetro</span>
+        <kbd class="px-2 py-1 rounded bg-[var(--bg-elevated)] border border-[var(--border-hairline)] font-bold text-[var(--text-ink)]">R</kbd>
+      </div>
+
+      <div class="flex items-center justify-between p-2.5 rounded bg-[var(--bg-canvas)] border border-[var(--border-hairline)]">
+        <span class="text-[var(--text-body)]">Ativar/Desativar Tela Cheia</span>
+        <kbd class="px-2 py-1 rounded bg-[var(--bg-elevated)] border border-[var(--border-hairline)] font-bold text-[var(--text-ink)]">F</kbd>
+      </div>
+
+      <div class="flex items-center justify-between p-2.5 rounded bg-[var(--bg-canvas)] border border-[var(--border-hairline)]">
+        <span class="text-[var(--text-body)]">Silenciar / Ativar Áudio</span>
+        <kbd class="px-2 py-1 rounded bg-[var(--bg-elevated)] border border-[var(--border-hairline)] font-bold text-[var(--text-ink)]">M</kbd>
+      </div>
+    </div>
+
+    <div class="mt-6 pt-4 border-t border-[var(--border-hairline)] flex justify-end">
+      <button 
+        id="btn-modal-done"
+        type="button" 
+        class="px-4 py-1.5 rounded-full bg-[var(--text-ink)] text-[var(--bg-canvas)] font-semibold text-xs transition-opacity hover:opacity-90"
+      >
+        Entendido
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const shortcutsModal = document.getElementById('shortcuts-modal');
+  const btnCloseModal = document.getElementById('btn-close-modal');
+  const btnModalDone = document.getElementById('btn-modal-done');
+
+  function openModal() {
+    if (shortcutsModal) shortcutsModal.classList.remove('hidden');
+  }
+
+  function closeModal() {
+    if (shortcutsModal) shortcutsModal.classList.add('hidden');
+  }
+
+  if (btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
+  if (btnModalDone) btnModalDone.addEventListener('click', closeModal);
+
+  if (shortcutsModal) {
+    shortcutsModal.addEventListener('click', (e) => {
+      if (e.target === shortcutsModal) closeModal();
+    });
+  }
+
+  window.addEventListener('toggle-shortcuts-modal', openModal);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '?' || (e.shiftKey && e.key === '/')) {
+      if (!['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) {
+        e.preventDefault();
+        openModal();
+      }
+    } else if (e.key === 'Escape') {
+      closeModal();
+    }
+  });
+</script>

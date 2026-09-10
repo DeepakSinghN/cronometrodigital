@@ -1,11 +1,47 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Navbar from '../components/Navbar.astro';
+import Stopwatch from '../components/Stopwatch.astro';
+import LapTable from '../components/LapTable.astro';
+import FeaturesGrid from '../components/FeaturesGrid.astro';
+import SeoContent from '../components/SeoContent.astro';
+import Footer from '../components/Footer.astro';
+import ShortcutsModal from '../components/ShortcutsModal.astro';
+import SettingsModal from '../components/SettingsModal.astro';
 ---
 
-<Layout>
-	<Welcome />
+<Layout 
+  title="Cronometro Online Grátis | Cronômetro Digital com Voltas e Milissegundos" 
+  description="Cronometro online grátis com precisão de milissegundos. Cronômetro digital com display LED, voltas, atalhos de teclado e modo tela cheia. Ideal para estudo, esportes, cubo mágico e Pomodoro."
+  canonicalPath="/"
+>
+  <div class="min-h-screen flex flex-col w-full bg-[var(--bg-canvas)]">
+    <!-- Cabeçalho de Navegação -->
+    <Navbar />
+
+    <!-- Container Principal -->
+    <main class="flex-1 flex flex-col items-center px-3 sm:px-6">
+      <!-- H1 SEO Heading -->
+      <h1 class="sr-only">Cronometro Online Grátis — Cronômetro Digital com Voltas, Milissegundos, Estudo e Pomodoro</h1>
+
+      <!-- Cronômetro Digital Central -->
+      <Stopwatch />
+
+      <!-- Tabela de Voltas -->
+      <LapTable />
+
+      <!-- Grade de Recursos -->
+      <FeaturesGrid />
+
+      <!-- Conteúdo SEO e Guia -->
+      <SeoContent />
+    </main>
+
+    <!-- Rodapé -->
+    <Footer />
+  </div>
+
+  <!-- Modais -->
+  <ShortcutsModal />
+  <SettingsModal />
 </Layout>

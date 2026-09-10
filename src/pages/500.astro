@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="500 - Erro do Servidor | Cronômetro Digital" description="Ocorreu um erro inesperado no Cronômetro Digital. Tente novamente ou volte ao cronômetro online.">
+  <Navbar />
+
+  <main class="w-full flex-1 flex flex-col items-center justify-center px-4 py-16 text-center select-none">
+    <div class="max-w-md flex flex-col items-center geist-card p-8 sm:p-12 shadow-2xl relative overflow-hidden">
+      <!-- Badge de Erro 500 -->
+      <span class="font-mono-custom text-xs uppercase tracking-widest text-[var(--text-mute)] bg-[var(--bg-canvas)] px-3 py-1 rounded-full border border-[var(--border-hairline)] mb-4">
+        ERRO 500
+      </span>
+
+      <h1 class="text-7xl sm:text-9xl font-extrabold tracking-tighter font-digital text-[var(--accent-red)] mb-2">
+        500
+      </h1>
+
+      <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-[var(--text-ink)] mb-3">
+        Erro Interno do Servidor
+      </h2>
+
+      <p class="text-xs sm:text-sm text-[var(--text-body)] leading-relaxed mb-8">
+        Algo deu errado do nosso lado. Por favor, atualize a página ou volte ao cronômetro principal.
+      </p>
+
+      <div class="flex items-center gap-3 flex-wrap justify-center">
+        <a 
+          href="/" 
+          class="px-6 py-3 rounded-full bg-[var(--text-ink)] text-[var(--bg-canvas)] font-bold text-sm hover:opacity-90 active:scale-95 transition-all shadow-md flex items-center gap-2"
+        >
+          <span>⏱️ Voltar ao Cronômetro</span>
+        </a>
+        <button 
+          onclick="window.location.reload();" 
+          class="px-5 py-3 rounded-full border border-[var(--border-hairline)] bg-[var(--bg-canvas)] text-[var(--text-ink)] font-semibold text-sm hover:border-neutral-400 active:scale-95 transition-all cursor-pointer"
+        >
+          🔄 Atualizar Página
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

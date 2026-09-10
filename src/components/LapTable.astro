@@ -1,0 +1,275 @@
+---
+---
+
+<div id="lap-table-container" class="w-full max-w-4xl mx-auto my-8 hidden">
+  
+  <!-- Lap Summary Cards Grid -->
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+    <!-- Total Laps Card -->
+    <div class="geist-card p-4 flex flex-col justify-between">
+      <span class="text-xs font-mono-custom uppercase tracking-wider text-[var(--text-mute)]">Total de Voltas</span>
+      <span id="stat-total-laps" class="text-2xl font-bold font-mono-custom mt-1 text-[var(--text-ink)]">0</span>
+    </div>
+
+    <!-- Fastest Lap Card -->
+    <div class="geist-card p-4 flex flex-col justify-between border-l-4 border-l-emerald-500">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-mono-custom uppercase tracking-wider text-[var(--text-mute)]">Volta Mais Rápida</span>
+        <span class="text-[10px] bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono-custom px-1.5 py-0.5 rounded font-medium">⚡ MELHOR</span>
+      </div>
+      <span id="stat-fastest-lap" class="text-xl font-bold font-mono-custom mt-1 text-emerald-600 dark:text-emerald-400">--:--.--</span>
+    </div>
+
+    <!-- Slowest Lap Card -->
+    <div class="geist-card p-4 flex flex-col justify-between border-l-4 border-l-amber-500">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-mono-custom uppercase tracking-wider text-[var(--text-mute)]">Volta Mais Lenta</span>
+        <span class="text-[10px] bg-amber-500/10 text-amber-600 dark:text-amber-400 font-mono-custom px-1.5 py-0.5 rounded font-medium">🐢 LENTA</span>
+      </div>
+      <span id="stat-slowest-lap" class="text-xl font-bold font-mono-custom mt-1 text-amber-600 dark:text-amber-400">--:--.--</span>
+    </div>
+
+    <!-- Average Lap Card -->
+    <div class="geist-card p-4 flex flex-col justify-between">
+      <span class="text-xs font-mono-custom uppercase tracking-wider text-[var(--text-mute)]">Média das Voltas</span>
+      <span id="stat-avg-lap" class="text-xl font-bold font-mono-custom mt-1 text-[var(--text-ink)]">--:--.--</span>
+    </div>
+  </div>
+
+  <!-- Lap Table Panel -->
+  <div class="geist-card overflow-hidden shadow-sm">
+    
+    <!-- Table Header Toolbar -->
+    <div class="p-4 border-b border-[var(--border-hairline)] bg-[var(--bg-canvas)] flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="text-base font-semibold tracking-tight text-[var(--text-ink)]">Histórico de Voltas</span>
+        <span id="badge-lap-count" class="text-xs font-mono-custom px-2 py-0.5 rounded-full bg-[var(--bg-elevated)] border border-[var(--border-hairline)] text-[var(--text-mute)]">0 itens</span>
+      </div>
+
+      <!-- Export Actions -->
+      <div class="flex items-center gap-2">
+        <button 
+          id="btn-copy-laps"
+          type="button"
+          class="px-3 py-1.5 rounded-md border border-[var(--border-hairline)] bg-[var(--bg-elevated)] text-[var(--text-body)] hover:text-[var(--text-ink)] hover:border-neutral-400 text-xs font-mono-custom flex items-center gap-1.5 transition-all"
+        >
+          <span>📋 Copiar Voltas</span>
+        </button>
+        <button 
+          id="btn-export-csv"
+          type="button"
+          class="px-3 py-1.5 rounded-md border border-[var(--border-hairline)] bg-[var(--bg-elevated)] text-[var(--text-body)] hover:text-[var(--text-ink)] hover:border-neutral-400 text-xs font-mono-custom flex items-center gap-1.5 transition-all"
+        >
+          <span>📥 Exportar CSV</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Scrollable Table -->
+    <div class="overflow-x-auto max-h-96">
+      <table class="w-full text-left border-collapse text-xs sm:text-sm font-mono-custom">
+        <thead class="bg-[var(--bg-canvas)] text-[var(--text-mute)] uppercase text-[11px] tracking-wider border-b border-[var(--border-hairline)] sticky top-0 z-10">
+          <tr>
+            <th class="py-3 px-4 sm:px-6">Volta #</th>
+            <th class="py-3 px-4 sm:px-6">Tempo da Volta</th>
+            <th class="py-3 px-4 sm:px-6">Tempo Total</th>
+            <th class="py-3 px-4 sm:px-6 text-right">Delta vs Anterior</th>
+          </tr>
+        </thead>
+        <tbody id="lap-table-rows" class="divide-y divide-[var(--border-hairline)] text-[var(--text-ink)]">
+          <!-- Dynamic Lap Rows inserted here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentLaps = [];
+  let currentPrecision = 2;
+
+  const lapTableContainer = document.getElementById('lap-table-container');
+  const lapTableRows = document.getElementById('lap-table-rows');
+  const statTotalLaps = document.getElementById('stat-total-laps');
+  const statFastestLap = document.getElementById('stat-fastest-lap');
+  const statSlowestLap = document.getElementById('stat-slowest-lap');
+  const statAvgLap = document.getElementById('stat-avg-lap');
+  const badgeLapCount = document.getElementById('badge-lap-count');
+
+  const btnCopyLaps = document.getElementById('btn-copy-laps');
+  const btnExportCsv = document.getElementById('btn-export-csv');
+
+  function formatTime(ms, precisionDigits = 2) {
+    const totalSecs = Math.floor(ms / 1000);
+    const hours = Math.floor(totalSecs / 3600);
+    const mins = Math.floor((totalSecs % 3600) / 60);
+    const secs = totalSecs % 60;
+    const remainderMs = Math.floor(ms % 1000);
+
+    const pad = (num, len = 2) => String(num).padStart(len, '0');
+
+    const hStr = hours > 0 ? `${pad(hours)}:` : '';
+    const mStr = `${pad(mins)}:`;
+    const sStr = pad(secs);
+
+    let msStr = '';
+    if (precisionDigits === 3) {
+      msStr = `.${pad(remainderMs, 3)}`;
+    } else if (precisionDigits === 2) {
+      msStr = `.${pad(Math.floor(remainderMs / 10), 2)}`;
+    } else if (precisionDigits === 1) {
+      msStr = `.${pad(Math.floor(remainderMs / 100), 1)}`;
+    } else {
+      msStr = '';
+    }
+
+    return `${hStr}${mStr}${sStr}${msStr}`;
+  }
+
+  function formatDelta(diffMs, precisionDigits = 2) {
+    if (Math.abs(diffMs) < 10) return '0.00s';
+    const sign = diffMs > 0 ? '+' : '-';
+    const secs = (Math.abs(diffMs) / 1000).toFixed(precisionDigits);
+    return `${sign}${secs}s`;
+  }
+
+  function renderLaps() {
+    if (!currentLaps || currentLaps.length === 0) {
+      if (lapTableContainer) lapTableContainer.classList.add('hidden');
+      return;
+    }
+
+    if (lapTableContainer) lapTableContainer.classList.remove('hidden');
+    if (badgeLapCount) badgeLapCount.textContent = `${currentLaps.length} voltas`;
+    if (statTotalLaps) statTotalLaps.textContent = String(currentLaps.length);
+
+    // Compute Stats
+    let minLapTime = Infinity;
+    let maxLapTime = -Infinity;
+    let totalLapSum = 0;
+
+    currentLaps.forEach(l => {
+      if (l.lapTime < minLapTime) minLapTime = l.lapTime;
+      if (l.lapTime > maxLapTime) maxLapTime = l.lapTime;
+      totalLapSum += l.lapTime;
+    });
+
+    const avgLapTime = totalLapSum / currentLaps.length;
+
+    if (statFastestLap) statFastestLap.textContent = formatTime(minLapTime, currentPrecision);
+    if (statSlowestLap) statSlowestLap.textContent = currentLaps.length > 1 ? formatTime(maxLapTime, currentPrecision) : '--:--.--';
+    if (statAvgLap) statAvgLap.textContent = formatTime(avgLapTime, currentPrecision);
+
+    // Render Table Rows (Newest lap on top)
+    if (lapTableRows) {
+      lapTableRows.innerHTML = currentLaps.map((lap, idx) => {
+        const isFastest = currentLaps.length > 1 && lap.lapTime === minLapTime;
+        const isSlowest = currentLaps.length > 1 && lap.lapTime === maxLapTime;
+
+        // Compare against previous lap chronologically (which is next item in array because currentLaps is reversed)
+        const prevLapInSeq = currentLaps[idx + 1];
+        const delta = prevLapInSeq ? lap.lapTime - prevLapInSeq.lapTime : 0;
+
+        let rowHighlightClass = '';
+        let badgeHtml = '';
+
+        if (isFastest) {
+          rowHighlightClass = 'bg-emerald-500/5 dark:bg-emerald-500/10 font-semibold';
+          badgeHtml = '<span class="ml-2 text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-mono-custom">MAIS RÁPIDA</span>';
+        } else if (isSlowest) {
+          rowHighlightClass = 'bg-amber-500/5 dark:bg-amber-500/10';
+          badgeHtml = '<span class="ml-2 text-[10px] px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-600 dark:text-amber-400 font-mono-custom">MAIS LENTA</span>';
+        }
+
+        let deltaHtml = '--';
+        if (prevLapInSeq) {
+          const deltaFormatted = formatDelta(delta, currentPrecision);
+          if (delta < 0) {
+            deltaHtml = `<span class="text-emerald-600 dark:text-emerald-400 font-semibold">${deltaFormatted}</span>`;
+          } else if (delta > 0) {
+            deltaHtml = `<span class="text-amber-600 dark:text-amber-400">${deltaFormatted}</span>`;
+          } else {
+            deltaHtml = `<span class="text-[var(--text-mute)]">0.00s</span>`;
+          }
+        }
+
+        return `
+          <tr class="${rowHighlightClass} hover:bg-[var(--bg-canvas)] transition-colors">
+            <td class="py-3 px-4 sm:px-6 font-bold text-[var(--text-ink)]">
+              Volta ${lap.lapNumber} ${badgeHtml}
+            </td>
+            <td class="py-3 px-4 sm:px-6 font-semibold">
+              ${formatTime(lap.lapTime, currentPrecision)}
+            </td>
+            <td class="py-3 px-4 sm:px-6 text-[var(--text-body)]">
+              ${formatTime(lap.totalTime, currentPrecision)}
+            </td>
+            <td class="py-3 px-4 sm:px-6 text-right">
+              ${deltaHtml}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+  }
+
+  // Listen to stopwatch lap updates
+  window.addEventListener('update-laps', (e) => {
+    const detail = e.detail;
+    if (detail) {
+      currentLaps = detail.laps || [];
+      currentPrecision = detail.precisionDigits ?? 2;
+      renderLaps();
+    }
+  });
+
+  // Export to CSV
+  if (btnExportCsv) {
+    btnExportCsv.addEventListener('click', () => {
+      if (!currentLaps || currentLaps.length === 0) return;
+
+      let csv = 'Número da Volta,Tempo da Volta,Tempo Total Decorrido\n';
+      // Export in chronological order (oldest to newest)
+      const chronoLaps = [...currentLaps].reverse();
+      chronoLaps.forEach(l => {
+        csv += `${l.lapNumber},${formatTime(l.lapTime, currentPrecision)},${formatTime(l.totalTime, currentPrecision)}\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `cronometro_digital_laps_${Date.now()}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  }
+
+  // Copy Laps to Clipboard
+  if (btnCopyLaps) {
+    btnCopyLaps.addEventListener('click', async () => {
+      if (!currentLaps || currentLaps.length === 0) return;
+
+      let text = '⏱️ Cronômetro Digital - Resumo de Voltas\n';
+      text += `Total de Voltas: ${currentLaps.length}\n`;
+      text += '------------------------------------\n';
+
+      const chronoLaps = [...currentLaps].reverse();
+      chronoLaps.forEach(l => {
+        text += `Volta ${l.lapNumber}: ${formatTime(l.lapTime, currentPrecision)} (Total: ${formatTime(l.totalTime, currentPrecision)})\n`;
+      });
+
+      try {
+        await navigator.clipboard.writeText(text);
+        const origText = btnCopyLaps.textContent;
+        btnCopyLaps.textContent = '✅ Copiado!';
+        setTimeout(() => {
+          btnCopyLaps.textContent = origText;
+        }, 2000);
+      } catch (err) {
+        console.error("Falha ao copiar voltas:", err);
+      }
+    });
+  }
+</script>

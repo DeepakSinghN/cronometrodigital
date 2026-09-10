@@ -1,0 +1,254 @@
+---
+---
+
+<!-- Settings Modal Backdrop -->
+<div 
+  id="settings-modal" 
+  class="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 hidden select-none"
+>
+  <!-- Modal Card -->
+  <div class="geist-card w-full max-w-md p-6 shadow-2xl relative bg-[var(--bg-elevated)] border border-[var(--border-hairline)] rounded-xl">
+    
+    <!-- Modal Header -->
+    <div class="flex items-center justify-between border-b border-[var(--border-hairline)] pb-4 mb-4">
+      <div class="flex items-center gap-2">
+        <span class="text-xl">⚙️</span>
+        <h3 class="text-base font-bold text-[var(--text-ink)]">Configurações do Cronômetro</h3>
+      </div>
+      <button 
+        id="btn-close-settings" 
+        type="button" 
+        class="p-1 rounded-md text-[var(--text-mute)] hover:text-[var(--text-ink)] text-sm font-mono-custom"
+      >
+        ✕
+      </button>
+    </div>
+
+    <!-- Options Form -->
+    <div class="space-y-5 text-xs text-[var(--text-body)]">
+      
+      <!-- 1. Digital LED Color Selector -->
+      <div>
+        <label class="block font-semibold text-[var(--text-ink)] mb-2">Cor do Display LED</label>
+        <div class="flex items-center gap-3 flex-wrap">
+          <!-- #FF9500 (Amber/Orange Default) -->
+          <button 
+            type="button" 
+            data-color="#FF9500" 
+            class="color-btn w-8 h-8 rounded-full bg-[#FF9500] border-2 border-white shadow-md cursor-pointer hover:scale-110 transition-transform" 
+            title="Amber / Orange (#FF9500)"
+          ></button>
+          
+          <!-- #00FF66 (Green) -->
+          <button 
+            type="button" 
+            data-color="#00FF66" 
+            class="color-btn w-8 h-8 rounded-full bg-[#00FF66] border-2 border-transparent shadow-md cursor-pointer hover:scale-110 transition-transform" 
+            title="Green (#00FF66)"
+          ></button>
+
+          <!-- #00E5FF (Cyan) -->
+          <button 
+            type="button" 
+            data-color="#00E5FF" 
+            class="color-btn w-8 h-8 rounded-full bg-[#00E5FF] border-2 border-transparent shadow-md cursor-pointer hover:scale-110 transition-transform" 
+            title="Cyan (#00E5FF)"
+          ></button>
+
+          <!-- #FF0055 (Pink) -->
+          <button 
+            type="button" 
+            data-color="#FF0055" 
+            class="color-btn w-8 h-8 rounded-full bg-[#FF0055] border-2 border-transparent shadow-md cursor-pointer hover:scale-110 transition-transform" 
+            title="Pink (#FF0055)"
+          ></button>
+
+          <!-- #FFFFFF (White) -->
+          <button 
+            type="button" 
+            data-color="#FFFFFF" 
+            class="color-btn w-8 h-8 rounded-full bg-white border-2 border-transparent shadow-md cursor-pointer hover:scale-110 transition-transform" 
+            title="White (#FFFFFF)"
+          ></button>
+
+          <!-- Custom RGB Color Picker Circle -->
+          <div 
+            id="custom-rgb-circle"
+            class="relative w-8 h-8 rounded-full border-2 border-transparent shadow-md cursor-pointer hover:scale-110 transition-transform overflow-hidden flex items-center justify-center bg-[conic-gradient(at_center,_red,_yellow,_lime,_cyan,_blue,_magenta,_red)]" 
+            title="Custom RGB Color Picker"
+          >
+            <input 
+              type="color" 
+              id="input-custom-color" 
+              value="#FF9500" 
+              class="opacity-0 w-full h-full cursor-pointer absolute inset-0 z-10"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Font Style Dropdown -->
+      <div>
+        <label for="setting-font-family" class="block font-semibold text-[var(--text-ink)] mb-1.5">Estilo da Fonte</label>
+        <select 
+          id="setting-font-family" 
+          class="w-full bg-[var(--bg-canvas)] border border-[var(--border-hairline)] rounded-md px-3 py-2 text-xs font-mono-custom text-[var(--text-ink)] focus:outline-none focus:border-[var(--led-color)]"
+        >
+          <option value="ClockIcons" selected>Fonte de Relógio Personalizada (ClockIcons)</option>
+          <option value="Orbitron">Digital 7 Segmentos (Orbitron)</option>
+          <option value="VT323">Arcade Retrô Digital (VT323)</option>
+          <option value="Share Tech Mono">Mono Técnico (Share Tech)</option>
+          <option value="Geist Mono">Mono Moderno Limpo (Geist)</option>
+        </select>
+      </div>
+
+      <!-- 3. Time Precision Dropdown -->
+      <div>
+        <label for="setting-precision" class="block font-semibold text-[var(--text-ink)] mb-1.5">Formato de Precisão do Tempo</label>
+        <select 
+          id="setting-precision" 
+          class="w-full bg-[var(--bg-canvas)] border border-[var(--border-hairline)] rounded-md px-3 py-2 text-xs font-mono-custom text-[var(--text-ink)] focus:outline-none focus:border-[var(--led-color)]"
+        >
+          <option value="2" selected>00:00.00 (Centissegundos)</option>
+          <option value="3">00:00.000 (Milissegundos)</option>
+          <option value="1">00:00.0 (Decissegundos)</option>
+          <option value="0">00:00 (Somente Segundos)</option>
+        </select>
+      </div>
+
+      <!-- 4. Pure Black Dark Theme Toggle -->
+      <div class="flex items-center justify-between pt-2 border-t border-[var(--border-hairline)]">
+        <div>
+          <span class="block font-semibold text-[var(--text-ink)]">Modo Escuro Puro</span>
+          <span class="text-[11px] text-[var(--text-mute)]">#000000 tela de alto contraste</span>
+        </div>
+        <input 
+          type="checkbox" 
+          id="setting-dark-mode" 
+          checked 
+          class="w-4 h-4 accent-[var(--led-color)] cursor-pointer"
+        />
+      </div>
+
+      <!-- 5. Audio Cues Toggle -->
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="block font-semibold text-[var(--text-ink)]">Feedback de Áudio</span>
+          <span class="text-[11px] text-[var(--text-mute)]">Som nos cliques de iniciar, pausar e volta</span>
+        </div>
+        <input 
+          type="checkbox" 
+          id="setting-audio-cues" 
+          checked 
+          class="w-4 h-4 accent-[var(--led-color)] cursor-pointer"
+        />
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="mt-6 pt-4 border-t border-[var(--border-hairline)] flex justify-end">
+      <button 
+        id="btn-save-settings" 
+        type="button" 
+        class="px-5 py-2 rounded-md bg-[var(--led-color)] text-black font-bold text-xs hover:opacity-90 transition-opacity"
+      >
+        OK
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const settingsModal = document.getElementById('settings-modal');
+  const btnCloseSettings = document.getElementById('btn-close-settings');
+  const btnSaveSettings = document.getElementById('btn-save-settings');
+
+  const colorBtns = document.querySelectorAll('.color-btn');
+  const customColorInput = document.getElementById('input-custom-color');
+  const customRgbCircle = document.getElementById('custom-rgb-circle');
+  const fontSelect = document.getElementById('setting-font-family');
+  const precisionSelect = document.getElementById('setting-precision');
+  const darkModeCheckbox = document.getElementById('setting-dark-mode');
+  const audioCheckbox = document.getElementById('setting-audio-cues');
+
+  let activeLedColor = '#FF9500';
+
+  function openSettingsModal() {
+    if (settingsModal) settingsModal.classList.remove('hidden');
+  }
+
+  function closeSettingsModal() {
+    if (settingsModal) settingsModal.classList.add('hidden');
+  }
+
+  // Preset Color selection handlers
+  colorBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      colorBtns.forEach(b => b.classList.replace('border-white', 'border-transparent'));
+      if (customRgbCircle) customRgbCircle.classList.replace('border-white', 'border-transparent');
+      btn.classList.replace('border-transparent', 'border-white');
+      activeLedColor = btn.getAttribute('data-color') || '#FF9500';
+      applySettings();
+    });
+  });
+
+  // Custom RGB Color Picker input handler
+  if (customColorInput) {
+    customColorInput.addEventListener('input', (e) => {
+      colorBtns.forEach(b => b.classList.replace('border-white', 'border-transparent'));
+      if (customRgbCircle) customRgbCircle.classList.replace('border-transparent', 'border-white');
+      activeLedColor = e.target.value;
+      applySettings();
+    });
+  }
+
+  function applySettings() {
+    // 1. Apply LED Color
+    document.documentElement.style.setProperty('--led-color', activeLedColor);
+
+    // 2. Apply Font Family
+    if (fontSelect) {
+      const selectedFont = fontSelect.value;
+      document.documentElement.style.setProperty('--font-digital', `'${selectedFont}', monospace`);
+    }
+
+    // 3. Dark mode canvas
+    if (darkModeCheckbox) {
+      if (darkModeCheckbox.checked) {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('cronometro_theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('cronometro_theme', 'light');
+      }
+    }
+
+    // 4. Dispatch precision & audio settings
+    const precisionVal = precisionSelect ? parseInt(precisionSelect.value, 10) : 2;
+    const audioVal = audioCheckbox ? audioCheckbox.checked : true;
+
+    window.dispatchEvent(new CustomEvent('update-settings', { 
+      detail: { 
+        ledColor: activeLedColor, 
+        precisionDigits: precisionVal, 
+        audioEnabled: audioVal 
+      } 
+    }));
+  }
+
+  if (btnCloseSettings) btnCloseSettings.addEventListener('click', closeSettingsModal);
+  if (btnSaveSettings) btnSaveSettings.addEventListener('click', closeSettingsModal);
+  
+  if (settingsModal) {
+    settingsModal.addEventListener('click', (e) => {
+      if (e.target === settingsModal) closeSettingsModal();
+    });
+  }
+
+  if (fontSelect) fontSelect.addEventListener('change', applySettings);
+  if (precisionSelect) precisionSelect.addEventListener('change', applySettings);
+  if (darkModeCheckbox) darkModeCheckbox.addEventListener('change', applySettings);
+  if (audioCheckbox) audioCheckbox.addEventListener('change', applySettings);
+
+  window.addEventListener('open-settings-modal', openSettingsModal);
+</script>

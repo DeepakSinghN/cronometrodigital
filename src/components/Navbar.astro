@@ -1,0 +1,102 @@
+---
+---
+
+<header class="w-full h-14 bg-[var(--bg-header)] border-b border-[var(--border-hairline)] sticky top-0 z-30 flex items-center justify-between px-3 sm:px-6 select-none transition-colors">
+  <!-- Seção Esquerda (Logo + Nome da Marca) -->
+  <div class="flex items-center gap-3">
+    <a href="/" class="flex items-center gap-2.5 group">
+      <!-- Logotipo -->
+      <img 
+        src="/favicon-96x96.png" 
+        alt="Cronômetro Digital Logo" 
+        class="w-7 h-7 object-contain group-hover:scale-105 transition-transform" 
+        onerror="this.onerror=null; this.src='/favicon.svg';"
+      />
+      <!-- Nome da Marca -->
+      <div class="flex flex-col sm:flex-row sm:items-baseline gap-1.5">
+        <span class="font-bold text-base sm:text-lg tracking-tight text-[var(--text-ink)] group-hover:text-[var(--led-color)] transition-colors">
+          Cronômetro Digital
+        </span>
+        <span class="hidden lg:inline text-[11px] font-mono-custom text-[var(--text-mute)] bg-[var(--bg-canvas)] px-2 py-0.5 rounded border border-[var(--border-hairline)]">
+          cronometrodigital.com
+        </span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Controles do Cabeçalho Direito -->
+  <div class="flex items-center gap-3 text-xs sm:text-sm text-[var(--text-body)]">
+
+    <!-- Menu Ferramentas -->
+    <div class="relative group hidden sm:block">
+      <button type="button" class="flex items-center gap-1 hover:text-[var(--text-ink)] transition-colors py-1 focus:outline-none">
+        <span>Ferramentas</span>
+        <span class="text-[10px]">▼</span>
+      </button>
+      <div class="absolute right-0 top-full mt-1 w-40 bg-[var(--bg-elevated)] border border-[var(--border-hairline)] rounded-lg shadow-xl py-1 hidden group-hover:block z-50">
+        <a href="#alarme" class="block px-3 py-2 text-xs text-[var(--text-body)] hover:bg-[var(--bg-canvas)] hover:text-[var(--text-ink)]">⏰ Alarme</a>
+        <a href="#timer" class="block px-3 py-2 text-xs text-[var(--text-body)] hover:bg-[var(--bg-canvas)] hover:text-[var(--text-ink)]">⏳ Temporizador</a>
+        <a href="/" class="block px-3 py-2 text-xs font-bold text-[var(--led-color)] bg-[var(--bg-canvas)]">⏱️ Cronômetro</a>
+        <a href="#relogio" class="block px-3 py-2 text-xs text-[var(--text-body)] hover:bg-[var(--bg-canvas)] hover:text-[var(--text-ink)]">🕒 Relógio</a>
+      </div>
+    </div>
+
+    <!-- Alternar Tema (Escuro/Claro) -->
+    <button 
+      id="btn-nav-theme"
+      type="button" 
+      title="Alternar Tema Escuro / Claro"
+      class="p-2 rounded-md hover:bg-[var(--bg-elevated)] text-[var(--text-ink)] transition-colors focus:outline-none"
+    >
+      <span id="theme-icon" class="text-base">🌓</span>
+    </button>
+
+    <!-- Ícone de Configurações -->
+    <button 
+      id="btn-nav-settings"
+      type="button" 
+      title="Configurações (Fonte, Cor LED, Precisão)"
+      class="p-2 rounded-md hover:bg-[var(--bg-elevated)] text-[var(--text-ink)] transition-colors focus:outline-none"
+    >
+      <span class="text-base">⚙️</span>
+    </button>
+  </div>
+</header>
+
+<script>
+  // Alternador de Tema
+  const themeBtn = document.getElementById('btn-nav-theme');
+  const themeIcon = document.getElementById('theme-icon');
+
+  function updateThemeUI() {
+    const isDark = document.documentElement.classList.contains('dark');
+    if (themeIcon) {
+      themeIcon.textContent = isDark ? '🌓' : '☀️';
+    }
+  }
+
+  if (themeBtn) {
+    updateThemeUI();
+    themeBtn.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('cronometro_theme', 'light');
+        document.documentElement.style.setProperty('--led-color', '#555555');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('cronometro_theme', 'dark');
+        document.documentElement.style.setProperty('--led-color', '#FF9500');
+      }
+      updateThemeUI();
+    });
+  }
+
+  // Abrir Modal de Configurações
+  const settingsBtn = document.getElementById('btn-nav-settings');
+  if (settingsBtn) {
+    settingsBtn.addEventListener('click', () => {
+      window.dispatchEvent(new CustomEvent('open-settings-modal'));
+    });
+  }
+</script>

@@ -1,0 +1,123 @@
+---
+---
+
+<!-- Desktop Left Sidebar -->
+<aside class="hidden md:flex flex-col w-24 sm:w-28 bg-[var(--bg-sidebar)] border-r border-[var(--border-hairline)] shrink-0 min-h-screen z-20 select-none">
+  <!-- Brand Logo Top -->
+  <a href="/" class="p-4 flex flex-col items-center justify-center border-b border-[var(--border-hairline)] group">
+    <div class="w-8 h-8 rounded-lg bg-[var(--text-ink)] text-[var(--bg-canvas)] flex items-center justify-center font-bold text-sm mb-1 group-hover:scale-105 transition-transform">
+      ⏱️
+    </div>
+    <span class="text-[11px] font-bold tracking-tight text-[var(--text-ink)] text-center leading-tight">
+      Cronómetro<br/><span class="text-[var(--led-color)]">Digital</span>
+    </span>
+  </a>
+
+  <!-- Sidebar Nav Items -->
+  <nav class="flex-1 flex flex-col pt-4 gap-1 px-2">
+    <!-- Alarm Clock -->
+    <a 
+      href="#alarm" 
+      class="flex flex-col items-center justify-center py-4 px-2 rounded-lg text-[var(--text-body)] hover:bg-[var(--bg-elevated)] hover:text-[var(--text-ink)] transition-colors group"
+      title="Alarm Clock"
+    >
+      <span class="text-2xl mb-1 group-hover:scale-110 transition-transform">⏰</span>
+      <span class="text-xs font-medium text-center leading-tight">Alarm clock</span>
+    </a>
+
+    <!-- Timer -->
+    <a 
+      href="#timer" 
+      class="flex flex-col items-center justify-center py-4 px-2 rounded-lg text-[var(--text-body)] hover:bg-[var(--bg-elevated)] hover:text-[var(--text-ink)] transition-colors group"
+      title="Timer"
+    >
+      <span class="text-2xl mb-1 group-hover:scale-110 transition-transform">⏳</span>
+      <span class="text-xs font-medium text-center leading-tight">Timer</span>
+    </a>
+
+    <!-- Stopwatch (ACTIVE ITEM) -->
+    <a 
+      href="/" 
+      class="flex flex-col items-center justify-center py-4 px-2 rounded-lg bg-[var(--bg-elevated)] text-[var(--text-ink)] font-semibold shadow-xs border border-[var(--border-hairline)] transition-colors group"
+      title="Stopwatch (Active)"
+    >
+      <span class="text-2xl mb-1 text-[var(--led-color)] group-hover:scale-110 transition-transform">⏱️</span>
+      <span class="text-xs text-center leading-tight">Stopwatch</span>
+    </a>
+
+    <!-- Clock -->
+    <a 
+      href="#clock" 
+      class="flex flex-col items-center justify-center py-4 px-2 rounded-lg text-[var(--text-body)] hover:bg-[var(--bg-elevated)] hover:text-[var(--text-ink)] transition-colors group"
+      title="Clock"
+    >
+      <span class="text-2xl mb-1 group-hover:scale-110 transition-transform">🕒</span>
+      <span class="text-xs font-medium text-center leading-tight">Clock</span>
+    </a>
+  </nav>
+
+  <!-- Sidebar Footer -->
+  <div class="p-3 text-center border-t border-[var(--border-hairline)] text-[10px] text-[var(--text-mute)] font-mono-custom">
+    v2.0
+  </div>
+</aside>
+
+<!-- Mobile Slide-over Drawer Backdrop -->
+<div 
+  id="mobile-drawer-backdrop" 
+  class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden md:hidden transition-opacity"
+>
+  <!-- Mobile Drawer -->
+  <div class="w-64 max-w-[80%] h-full bg-[var(--bg-sidebar)] border-r border-[var(--border-hairline)] p-4 flex flex-col justify-between">
+    <div>
+      <div class="flex items-center justify-between border-b border-[var(--border-hairline)] pb-4 mb-4">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">⏱️</span>
+          <span class="font-bold text-sm text-[var(--text-ink)]">Cronómetro Digital</span>
+        </div>
+        <button id="btn-close-mobile-drawer" class="p-1 rounded text-[var(--text-mute)] hover:text-[var(--text-ink)]">
+          ✕
+        </button>
+      </div>
+
+      <nav class="flex flex-col gap-2">
+        <a href="#alarm" class="flex items-center gap-3 p-3 rounded-lg text-[var(--text-body)] hover:bg-[var(--bg-elevated)] text-sm font-medium">
+          <span>⏰</span> Alarm clock
+        </a>
+        <a href="#timer" class="flex items-center gap-3 p-3 rounded-lg text-[var(--text-body)] hover:bg-[var(--bg-elevated)] text-sm font-medium">
+          <span>⏳</span> Timer
+        </a>
+        <a href="/" class="flex items-center gap-3 p-3 rounded-lg bg-[var(--bg-elevated)] text-[var(--text-ink)] font-bold text-sm border border-[var(--border-hairline)]">
+          <span class="text-[var(--led-color)]">⏱️</span> Stopwatch
+        </a>
+        <a href="#clock" class="flex items-center gap-3 p-3 rounded-lg text-[var(--text-body)] hover:bg-[var(--bg-elevated)] text-sm font-medium">
+          <span>🕒</span> Clock
+        </a>
+      </nav>
+    </div>
+
+    <div class="border-t border-[var(--border-hairline)] pt-4 text-xs text-[var(--text-mute)] font-mono-custom text-center">
+      cronometrodigital.com
+    </div>
+  </div>
+</div>
+
+<script>
+  const mobileBackdrop = document.getElementById('mobile-drawer-backdrop');
+  const btnCloseDrawer = document.getElementById('btn-close-mobile-drawer');
+
+  function closeDrawer() {
+    if (mobileBackdrop) mobileBackdrop.classList.add('hidden');
+  }
+
+  if (btnCloseDrawer) btnCloseDrawer.addEventListener('click', closeDrawer);
+  if (mobileBackdrop) {
+    mobileBackdrop.addEventListener('click', (e) => {
+      if (e.target === mobileBackdrop) closeDrawer();
+    });
+  }
+
+  window.addEventListener('toggle-mobile-drawer', () => {
+    if (mobileBackdrop) mobileBackdrop.classList.remove('hidden');
+  });
+</script>

@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout 
+  title="Política de Privacidade | Cronômetro Digital" 
+  description="Política de Privacidade do Cronômetro Digital (cronometrodigital.com). Saiba como respeitamos sua privacidade e processamos dados localmente."
+  canonicalPath="/politica-de-privacidade"
+>
+  <Navbar />
+
+  <main class="w-full flex-1 max-w-4xl mx-auto px-4 py-12">
+    <!-- Cabeçalho -->
+    <div class="mb-10 text-center">
+      <span class="font-mono-custom text-xs uppercase tracking-widest text-[var(--text-mute)] bg-[var(--bg-elevated)] px-3 py-1 rounded-full border border-[var(--border-hairline)] mb-3 inline-block">
+        LEGAL & PRIVACIDADE
+      </span>
+      <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-[var(--text-ink)] mb-4">
+        Política de Privacidade
+      </h1>
+      <p class="text-xs font-mono-custom text-[var(--text-mute)]">
+        Data de Vigência: 6 de setembro de 2026 • Domínio: cronometrodigital.com
+      </p>
+    </div>
+
+    <!-- Conteúdo -->
+    <div class="space-y-6 text-sm text-[var(--text-body)] leading-relaxed">
+      <div class="geist-card p-6 sm:p-8 space-y-4">
+        <h2 class="text-xl font-bold text-[var(--text-ink)]">1. Informações que Coletamos</h2>
+        <p>
+          No <strong>Cronômetro Digital</strong>, respeitamos sua privacidade. Não exigimos cadastro, login ou informações pessoais (como nome, endereço de e-mail ou número de telefone) para usar nosso <strong>cronômetro online</strong>.
+        </p>
+      </div>
+
+      <div class="geist-card p-6 sm:p-8 space-y-4">
+        <h2 class="text-xl font-bold text-[var(--text-ink)]">2. Armazenamento Local do Navegador</h2>
+        <p>
+          Nossa aplicação web usa o <code class="font-mono-custom text-xs bg-[var(--bg-canvas)] px-1.5 py-0.5 rounded">localStorage</code> do seu navegador para salvar suas preferências de interface (como modo claro ou escuro e configurações de cor do LED). Esses dados ficam armazenados exclusivamente no seu dispositivo e jamais são transmitidos para servidores externos.
+        </p>
+      </div>
+
+      <div class="geist-card p-6 sm:p-8 space-y-4">
+        <h2 class="text-xl font-bold text-[var(--text-ink)]">3. Análise e Cookies</h2>
+        <p>
+          O Cronômetro Digital pode usar cache padrão do navegador e utilitários de medição de performance para monitorar tráfego web, otimizar velocidades de entrega do site e garantir alta confiabilidade. Nenhuma informação pessoalmente identificável é coletada ou armazenada.
+        </p>
+      </div>
+
+      <div class="geist-card p-6 sm:p-8 space-y-4">
+        <h2 class="text-xl font-bold text-[var(--text-ink)]">4. Links de Terceiros</h2>
+        <p>
+          Nossa aplicação pode conter links para sites externos ou ferramentas utilitárias. Não somos responsáveis pelas práticas de privacidade ou conteúdo de sites de terceiros. Encorajamos os usuários a revisar as políticas de privacidade de qualquer site que visitem.
+        </p>
+      </div>
+
+      <div class="geist-card p-6 sm:p-8 space-y-4">
+        <h2 class="text-xl font-bold text-[var(--text-ink)]">5. Atualizações desta Política</h2>
+        <p>
+          Podemos atualizar esta Política de Privacidade periodicamente para refletir melhorias tecnológicas ou requisitos legais. Qualquer alteração será publicada diretamente nesta página com uma data de vigência atualizada.
+        </p>
+      </div>
+
+      <div class="geist-card p-6 sm:p-8 space-y-4">
+        <h2 class="text-xl font-bold text-[var(--text-ink)]">6. Contato</h2>
+        <p>
+          Se tiver dúvidas sobre esta Política de Privacidade, entre em contato conosco em <a href="/contato" class="text-[var(--led-color)] font-semibold hover:underline">cronometrodigital.com/contato</a>.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

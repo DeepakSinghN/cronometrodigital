@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&family=VT323&family=Geist+Mono:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'ClockIcons';
+  src: url('/clockicons/clockicons.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-geist: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+  --font-digital: 'ClockIcons', 'Orbitron', 'VT323', monospace;
+
+  /* Digital LED Color for Light Theme */
+  --led-color: #555555;
+  --led-glow: rgba(85, 85, 85, 0.15);
+
+  /* Light Theme Colors */
+  --bg-canvas: #f4f4f5;
+  --bg-elevated: #ffffff;
+  --bg-sidebar: #e4e4e7;
+  --bg-header: #dedede;
+  --text-ink: #18181b;
+  --text-body: #3f3f46;
+  --text-mute: #71717a;
+  --border-hairline: #d4d4d8;
+}
+
+.dark {
+  /* Digital LED Color for Dark Theme (#FF9500) */
+  --led-color: #FF9500;
+
+
+  /* Dark Theme Colors - Exact #000000 request */
+  --bg-canvas: #000000;
+  --bg-elevated: #0d0d0d;
+  --bg-sidebar: #18181b;
+  --bg-header: #27272a;
+  --text-ink: #ffffff;
+  --text-body: #a1a1aa;
+  --text-mute: #71717a;
+  --border-hairline: #27272a;
+}
+
+body {
+  font-family: var(--font-geist);
+  background-color: var(--bg-canvas);
+  color: var(--text-ink);
+  transition: background-color 0.15s ease, color 0.15s ease;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Digital LED 7-Segment Clock Typography */
+.font-digital {
+  font-family: var(--font-digital);
+  color: var(--led-color);
+  transition: color 0.15s ease;
+}
+
+.font-mono-custom {
+  font-family: var(--font-mono);
+}
+
+/* Hairline border utilities */
+.geist-border {
+  border: 1px solid var(--border-hairline);
+}
+
+.geist-card {
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-hairline);
+  border-radius: 8px;
+}
+
+/* Native Fullscreen Mode Styling - ONLY Stopwatch Display */
+#stopwatch-box:fullscreen,
+#stopwatch-box:-webkit-full-screen {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background-color: #000000 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1.5rem !important;
+  box-shadow: none !important;
+  position: relative !important;
+}
+
+#stopwatch-box:fullscreen #stopwatch-toolbar,
+#stopwatch-box:-webkit-full-screen #stopwatch-toolbar {
+  position: absolute !important;
+  top: 1rem !important;
+  right: 1.5rem !important;
+  width: auto !important;
+  margin-bottom: 0 !important;
+  z-index: 50 !important;
+}
+
+#stopwatch-box:fullscreen #session-title-container,
+#stopwatch-box:-webkit-full-screen #session-title-container {
+  display: none !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(161, 161, 170, 0.3);
+  border-radius: 9999px;
+}

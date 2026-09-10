@@ -1,0 +1,414 @@
+---
+---
+
+<div class="w-full flex flex-col items-center justify-center py-6 sm:py-12 select-none">
+  <div class="w-full max-w-7xl flex flex-col items-center">
+    
+    <!-- Timer Outer Container (Selected for Native Fullscreen Mode) -->
+    <div 
+      id="stopwatch-box" 
+      class="w-full bg-[var(--bg-canvas)] border border-[var(--border-hairline)] rounded-xl p-4 sm:p-10 shadow-2xl relative flex flex-col items-center transition-all"
+    >
+      
+      <!-- Barra de Ferramentas Superior (Diminuir Fonte, Aumentar Fonte, Tela Cheia) -->
+      <div id="stopwatch-toolbar" class="w-full flex items-center justify-end gap-3 mb-4 text-[var(--text-mute)] text-lg sm:text-xl px-2">
+
+        <!-- Decrease Font Size -->
+        <button 
+          id="btn-font-minus" 
+          type="button" 
+          title="Diminuir Tamanho da Fonte"
+          class="p-2 rounded-md hover:bg-[var(--bg-elevated)] hover:text-[var(--text-ink)] transition-colors focus:outline-none"
+        >
+          <span>➖</span>
+        </button>
+
+        
+
+        <!-- Increase Font Size -->
+        <button 
+          id="btn-font-plus" 
+          type="button" 
+          title="Aumentar Tamanho da Fonte"
+          class="p-2 rounded-md hover:bg-[var(--bg-elevated)] hover:text-[var(--text-ink)] transition-colors focus:outline-none"
+        >
+          <span>➕</span>
+        </button>
+
+        <!-- Reset Font Size -->
+        <button 
+          id="btn-font-reset" 
+          type="button" 
+          title="Redefinir Tamanho da Fonte"
+          class="p-2 rounded-md hover:bg-[var(--bg-elevated)] hover:text-[var(--text-ink)] transition-colors focus:outline-none text-xl"
+        >
+          <span>↺</span>
+        </button>
+
+        <!-- Fullscreen Button -->
+        <button 
+          id="btn-tool-fullscreen" 
+          type="button" 
+          title="Ativar/Desativar Tela Cheia"
+          class="p-2 rounded-md hover:bg-[var(--bg-elevated)] hover:text-[var(--text-ink)] transition-colors focus:outline-none"
+        >
+          <span id="tool-fullscreen-icon">⛶</span>
+        </button>
+      </div>
+
+      <!-- Main 7-Segment Digital Clock Display (COLOR #FF9500 ON PURE BLACK) -->
+      <div class="my-6 sm:my-14 flex items-baseline justify-center font-digital tracking-tight">
+        <span id="display-hours-mins-secs" class="text-6xl sm:text-8xl md:text-9xl font-medium transition-all duration-100">
+          00:00
+        </span>
+        <span id="display-ms-container" class="text-3xl sm:text-5xl md:text-6xl font-bold ml-1 sm:ml-3">
+          .<span id="display-ms">00</span>
+        </span>
+      </div>
+
+      <!-- Rectangular Action Control Buttons (Matching Reference Screenshots) -->
+      <div class="flex items-center justify-center gap-3 sm:gap-6 my-4 w-full max-w-md flex-wrap">
+        
+        <!-- Reset Button (Golden/Amber Rectangular Button) -->
+        <button 
+          id="btn-reset" 
+          type="button" 
+          disabled
+          class="flex-1 min-w-[110px] sm:min-w-[130px] h-12 sm:h-14 rounded-md bg-[#B8860B] hover:bg-[#a3760a] text-white font-bold text-base sm:text-lg disabled:opacity-30 disabled:pointer-events-none active:scale-95 transition-all shadow-md focus:outline-none flex items-center justify-center gap-1.5"
+        >
+          <span>Resetar</span>
+        </button>
+
+        <!-- Botão Volta (Retangular Azul) -->
+        <button 
+          id="btn-lap" 
+          type="button" 
+          disabled
+          class="flex-1 min-w-[110px] sm:min-w-[130px] h-12 sm:h-14 rounded-md bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-base sm:text-lg disabled:opacity-30 disabled:pointer-events-none active:scale-95 transition-all shadow-md focus:outline-none flex items-center justify-center gap-1.5"
+        >
+          <span>Volta</span>
+        </button>
+
+        <!-- Botão Iniciar / Parar (Verde #4EAF81 ao iniciar, Vermelho ao parar) -->
+        <button 
+          id="btn-start-pause" 
+          type="button" 
+          class="flex-1 min-w-[110px] sm:min-w-[130px] h-12 sm:h-14 rounded-md bg-[#4EAF81] hover:opacity-90 text-white font-bold text-base sm:text-lg active:scale-95 transition-all shadow-md focus:outline-none flex items-center justify-center gap-1.5"
+        >
+          <span id="label-start-pause">Iniciar</span>
+        </button>
+      </div>
+
+      <!-- Quick Session Title Input (Hidden in Fullscreen) -->
+      <div id="session-title-container" class="mt-6 w-full max-w-sm px-2">
+        <input 
+          type="text" 
+          id="session-title" 
+          value="Sessão de Cronômetro Online" 
+          placeholder="Título da sessão..."
+          class="w-full text-center bg-transparent border-b border-transparent hover:border-[var(--border-hairline)] focus:border-[var(--led-color)] text-xs sm:text-sm font-mono-custom text-[var(--text-body)] py-1 focus:outline-none transition-all"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // High-Precision Timer Engine
+  let startTime = 0;
+  let elapsedTime = 0;
+  let timerInterval = null;
+  let isRunning = false;
+  let precisionDigits = 2; // Default .00 centiseconds
+  let isMuted = false;
+  let currentFontSizeScale = 1.0;
+
+  let laps = [];
+  let lastLapTotalTime = 0;
+
+  // DOM Elements
+  const stopwatchBox = document.getElementById('stopwatch-box');
+  const displayHoursMinsSecs = document.getElementById('display-hours-mins-secs');
+  const displayMs = document.getElementById('display-ms');
+  const displayMsContainer = document.getElementById('display-ms-container');
+
+  const btnStartPause = document.getElementById('btn-start-pause');
+  const labelStartPause = document.getElementById('label-start-pause');
+  const btnLap = document.getElementById('btn-lap');
+  const btnReset = document.getElementById('btn-reset');
+
+  const btnFontMinus = document.getElementById('btn-font-minus');
+  const btnFontReset = document.getElementById('btn-font-reset');
+  const btnFontPlus = document.getElementById('btn-font-plus');
+  const btnToolShare = document.getElementById('btn-tool-share');
+  const btnToolFullscreen = document.getElementById('btn-tool-fullscreen');
+  const toolFullscreenIcon = document.getElementById('tool-fullscreen-icon');
+
+  // Web Audio Audio Cues
+  let audioCtx = null;
+  function playAudioCue(freq = 600, duration = 0.08, type = 'sine') {
+    if (isMuted) return;
+    try {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    } catch (e) {
+      console.warn("Audio Context playback error:", e);
+    }
+  }
+
+  function formatTimeComponents(ms) {
+    const totalSecs = Math.floor(ms / 1000);
+    const hours = Math.floor(totalSecs / 3600);
+    const mins = Math.floor((totalSecs % 3600) / 60);
+    const secs = totalSecs % 60;
+    const remainderMs = Math.floor(ms % 1000);
+
+    const pad = (num, len = 2) => String(num).padStart(len, '0');
+
+    const hStr = hours > 0 ? `${pad(hours)}:` : '';
+    const mStr = `${pad(mins)}:`;
+    const sStr = pad(secs);
+    const mainStr = `${hStr}${mStr}${sStr}`;
+
+    let msStr = '';
+    if (precisionDigits === 3) {
+      msStr = pad(remainderMs, 3);
+    } else if (precisionDigits === 2) {
+      msStr = pad(Math.floor(remainderMs / 10), 2);
+    } else if (precisionDigits === 1) {
+      msStr = pad(Math.floor(remainderMs / 100), 1);
+    } else {
+      msStr = '';
+    }
+
+    return { mainStr, msStr };
+  }
+
+  function updateDisplay() {
+    const { mainStr, msStr } = formatTimeComponents(elapsedTime);
+    if (displayHoursMinsSecs) displayHoursMinsSecs.textContent = mainStr;
+    
+    if (precisionDigits === 0) {
+      if (displayMsContainer) displayMsContainer.style.display = 'none';
+    } else {
+      if (displayMsContainer) displayMsContainer.style.display = 'inline';
+      if (displayMs) displayMs.textContent = msStr;
+    }
+  }
+
+  function updateUIState() {
+    if (isRunning) {
+      if (labelStartPause) labelStartPause.textContent = 'Parar';
+      if (btnStartPause) btnStartPause.className = 'flex-1 min-w-[110px] sm:min-w-[130px] h-12 sm:h-14 rounded-md bg-[#FF3B30] hover:bg-[#dc2626] text-white font-bold text-base sm:text-lg active:scale-95 transition-all shadow-md focus:outline-none flex items-center justify-center gap-1.5';
+      if (btnLap) btnLap.disabled = false;
+      if (btnReset) btnReset.disabled = false;
+    } else if (elapsedTime > 0) {
+      if (labelStartPause) labelStartPause.textContent = 'Iniciar';
+      if (btnStartPause) btnStartPause.className = 'flex-1 min-w-[110px] sm:min-w-[130px] h-12 sm:h-14 rounded-md bg-[#4EAF81] hover:opacity-90 text-white font-bold text-base sm:text-lg active:scale-95 transition-all shadow-md focus:outline-none flex items-center justify-center gap-1.5';
+      if (btnLap) btnLap.disabled = true;
+      if (btnReset) btnReset.disabled = false;
+    } else {
+      if (labelStartPause) labelStartPause.textContent = 'Iniciar';
+      if (btnStartPause) btnStartPause.className = 'flex-1 min-w-[110px] sm:min-w-[130px] h-12 sm:h-14 rounded-md bg-[#4EAF81] hover:opacity-90 text-white font-bold text-base sm:text-lg active:scale-95 transition-all shadow-md focus:outline-none flex items-center justify-center gap-1.5';
+      if (btnLap) btnLap.disabled = true;
+      if (btnReset) btnReset.disabled = true;
+    }
+  }
+
+  function startTimer() {
+    if (!isRunning) {
+      isRunning = true;
+      startTime = performance.now() - elapsedTime;
+      playAudioCue(800, 0.08, 'sine');
+      
+      const tick = () => {
+        if (!isRunning) return;
+        elapsedTime = performance.now() - startTime;
+        updateDisplay();
+        timerInterval = requestAnimationFrame(tick);
+      };
+      timerInterval = requestAnimationFrame(tick);
+      updateUIState();
+    }
+  }
+
+  function pauseTimer() {
+    if (isRunning) {
+      isRunning = false;
+      if (timerInterval) cancelAnimationFrame(timerInterval);
+      playAudioCue(450, 0.08, 'triangle');
+      updateUIState();
+    }
+  }
+
+  function toggleStartPause() {
+    if (isRunning) {
+      pauseTimer();
+    } else {
+      startTimer();
+    }
+  }
+
+  function recordLap() {
+    if (isRunning || elapsedTime > 0) {
+      const lapNumber = laps.length + 1;
+      const totalTime = elapsedTime;
+      const lapTime = totalTime - lastLapTotalTime;
+      lastLapTotalTime = totalTime;
+
+      const lapData = {
+        lapNumber,
+        lapTime,
+        totalTime,
+        timestamp: new Date().toLocaleTimeString()
+      };
+
+      laps.unshift(lapData);
+      playAudioCue(1000, 0.06, 'sine');
+
+      window.dispatchEvent(new CustomEvent('update-laps', { detail: { laps, precisionDigits } }));
+    }
+  }
+
+  function resetTimer() {
+    pauseTimer();
+    elapsedTime = 0;
+    lastLapTotalTime = 0;
+    laps = [];
+    playAudioCue(300, 0.12, 'sawtooth');
+    updateDisplay();
+    updateUIState();
+    window.dispatchEvent(new CustomEvent('update-laps', { detail: { laps, precisionDigits } }));
+  }
+
+  // Font Size Resizing
+  if (btnFontPlus) {
+    btnFontPlus.addEventListener('click', () => {
+      if (currentFontSizeScale < 1.6) {
+        currentFontSizeScale += 0.15;
+        applyFontScale();
+      }
+    });
+  }
+
+  if (btnFontMinus) {
+    btnFontMinus.addEventListener('click', () => {
+      if (currentFontSizeScale > 0.6) {
+        currentFontSizeScale -= 0.15;
+        applyFontScale();
+      }
+    });
+  }
+
+  if (btnFontReset) {
+    btnFontReset.addEventListener('click', () => {
+      currentFontSizeScale = 1.0;
+      applyFontScale();
+    });
+  }
+
+  function applyFontScale() {
+    if (displayHoursMinsSecs) {
+      displayHoursMinsSecs.style.transform = `scale(${currentFontSizeScale})`;
+    }
+    if (displayMsContainer) {
+      displayMsContainer.style.transform = `scale(${currentFontSizeScale})`;
+    }
+  }
+
+  // Fullscreen Handler - ONLY stopwatch box becomes fullscreen!
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      if (stopwatchBox && stopwatchBox.requestFullscreen) {
+        stopwatchBox.requestFullscreen().catch(err => {
+          console.warn(`Error enabling fullscreen: ${err.message}`);
+        });
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  }
+
+  if (btnToolFullscreen) {
+    btnToolFullscreen.addEventListener('click', toggleFullscreen);
+  }
+
+  document.addEventListener('fullscreenchange', () => {
+    if (toolFullscreenIcon) {
+      toolFullscreenIcon.textContent = document.fullscreenElement ? '🗗' : '⛶';
+    }
+  });
+
+  // Share link handler
+  if (btnToolShare) {
+    btnToolShare.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        alert("URL do cronômetro copiada para a área de transferência!");
+      } catch (e) {
+        console.warn("Clipboard error:", e);
+      }
+    });
+  }
+
+  // Listen to Settings updates
+  window.addEventListener('update-settings', (e) => {
+    const detail = e.detail;
+    if (detail) {
+      if (detail.precisionDigits !== undefined) precisionDigits = detail.precisionDigits;
+      if (detail.audioEnabled !== undefined) isMuted = !detail.audioEnabled;
+      updateDisplay();
+      window.dispatchEvent(new CustomEvent('update-laps', { detail: { laps, precisionDigits } }));
+    }
+  });
+
+  // Event Listeners
+  if (btnStartPause) btnStartPause.addEventListener('click', toggleStartPause);
+  if (btnLap) btnLap.addEventListener('click', recordLap);
+  if (btnReset) btnReset.addEventListener('click', resetTimer);
+
+  // Keyboard Shortcuts Listener
+  document.addEventListener('keydown', (e) => {
+    if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) {
+      return;
+    }
+
+    if (e.code === 'Space') {
+      e.preventDefault();
+      toggleStartPause();
+    } else if (e.code === 'KeyL' || e.key === 'l' || e.key === 'L') {
+      if (!btnLap?.disabled) {
+        e.preventDefault();
+        recordLap();
+      }
+    } else if (e.code === 'KeyR' || e.key === 'r' || e.key === 'R') {
+      if (!btnReset?.disabled) {
+        e.preventDefault();
+        resetTimer();
+      }
+    } else if (e.code === 'KeyF' || e.key === 'f' || e.key === 'F') {
+      e.preventDefault();
+      toggleFullscreen();
+    }
+  });
+
+  // Initial setup
+  updateDisplay();
+  updateUIState();
+</script>
