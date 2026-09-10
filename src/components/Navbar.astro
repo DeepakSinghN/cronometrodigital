@@ -27,19 +27,14 @@
   <!-- Controles do Cabeçalho Direito -->
   <div class="flex items-center gap-3 text-xs sm:text-sm text-[var(--text-body)]">
 
-    <!-- Menu Ferramentas -->
-    <div class="relative group hidden sm:block">
-      <button type="button" class="flex items-center gap-1 hover:text-[var(--text-ink)] transition-colors py-1 focus:outline-none">
-        <span>Ferramentas</span>
-        <span class="text-[10px]">▼</span>
-      </button>
-      <div class="absolute right-0 top-full mt-1 w-40 bg-[var(--bg-elevated)] border border-[var(--border-hairline)] rounded-lg shadow-xl py-1 hidden group-hover:block z-50">
-        <a href="#alarme" class="block px-3 py-2 text-xs text-[var(--text-body)] hover:bg-[var(--bg-canvas)] hover:text-[var(--text-ink)]">⏰ Alarme</a>
-        <a href="#timer" class="block px-3 py-2 text-xs text-[var(--text-body)] hover:bg-[var(--bg-canvas)] hover:text-[var(--text-ink)]">⏳ Temporizador</a>
-        <a href="/" class="block px-3 py-2 text-xs font-bold text-[var(--led-color)] bg-[var(--bg-canvas)]">⏱️ Cronômetro</a>
-        <a href="#relogio" class="block px-3 py-2 text-xs text-[var(--text-body)] hover:bg-[var(--bg-canvas)] hover:text-[var(--text-ink)]">🕒 Relógio</a>
-      </div>
-    </div>
+    <!-- Links de Navegação de Páginas -->
+    <nav class="hidden sm:flex items-center gap-3 sm:gap-4 font-medium text-xs sm:text-sm">
+      <a href="/" class="text-[var(--text-body)] hover:text-[var(--text-ink)] transition-colors py-1">Início</a>
+      <a href="/sobre-nos" class="text-[var(--text-body)] hover:text-[var(--text-ink)] transition-colors py-1">Sobre Nós</a>
+      <a href="/contato" class="text-[var(--text-body)] hover:text-[var(--text-ink)] transition-colors py-1">Contato</a>
+      <a href="/politica-de-privacidade" class="text-[var(--text-body)] hover:text-[var(--text-ink)] transition-colors py-1 hidden md:inline">Privacidade</a>
+      <a href="/termos-e-condicoes" class="text-[var(--text-body)] hover:text-[var(--text-ink)] transition-colors py-1 hidden lg:inline">Termos</a>
+    </nav>
 
     <!-- Alternar Tema (Escuro/Claro) -->
     <button 
