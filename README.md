@@ -1,46 +1,27 @@
-# Astro Starter Kit: Basics
+# Cronômetro Digital Online
 
-```sh
-npm create astro@latest -- --template basics
-```
+Um cronômetro digital online moderno, responsivo e ultra-preciso construído com Astro, Vanilla JS e CSS.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🚀 Funcionalidades
 
-## 🚀 Project Structure
+- **Precisão de Milissegundos**: Medição de tempo exata em tempo real.
+- **Tabela de Voltas (Laps)**: Registro de voltas com destaque visual para a volta mais rápida e mais lenta.
+- **Atalhos de Teclado**:
+  - `Espaço`: Iniciar / Pausar
+  - `L`: Registrar Volta
+  - `R`: Resetar
+  - `F`: Tela Cheia
+  - `M`: Silenciar Sons
+- **Efeitos Sonoros**: Feedback sonoro com Synthesizer / Web Audio API.
+- **Design Moderno & Responsivo**: Tema escuro elegante com glassmorphism, suporte completo a dispositivos móveis, tablets e desktop.
+- **SEO & PWA Prontos**: Tags Meta completas, OpenGraph, Twitter Cards, Sitemap XML e `robots.txt`.
 
-Inside of your Astro project, you'll see the following folders and files:
+## 🧞 Comandos
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+| Comando | Ação |
+| :--- | :--- |
+| `npm install` | Instala as dependências |
+| `npm run dev` | Inicia o servidor de desenvolvimento em `localhost:4321` |
+| `npm run build` | Compila o projeto de produção para `./dist/` |
+| `npm run preview` | Visualiza o build de produção localmente |
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
