@@ -1,8 +1,26 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-
 import tailwindcss from '@tailwindcss/vite';
+import { fileURLToPath } from 'node:url';
+import fs from 'node:fs';
+import path from 'node:path';
+
+function sitemapAlias() {
+  return {
+    name: 'sitemap-alias',
+    hooks: {
+      'astro:build:done': async ({ dir }) => {
+        const distPath = fileURLToPath(dir);
+        const indexPath = path.join(distPath, 'sitemap-index.xml');
+        const aliasPath = path.join(distPath, 'sitemap.xml');
+        if (fs.existsSync(indexPath)) {
+          fs.copyFileSync(indexPath, aliasPath);
+          console.log('✓ Copied sitemap-index.xml to sitemap.xml in dist');
+        }
+      },
+    },
+  };
+}
 
 // https://astro.build/config
 export default defineConfig({
@@ -25,6 +43,7 @@ export default defineConfig({
         },
       },
     }),
+    sitemapAlias(),
   ],
   vite: {
     plugins: [tailwindcss()]
