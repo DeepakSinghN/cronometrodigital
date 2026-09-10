@@ -16,4 +16,4 @@ Disallow: /404
 Disallow: /500
 
 # Sitemap location
-Sitemap: https://cronometrodigital.com/sitemap.xml
+Sitemap: https://cronometrodigital.com/sitemap-index.xml
