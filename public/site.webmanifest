@@ -1,21 +1,26 @@
 {
-  "name": "cronometro digital",
-  "short_name": "cronometro",
+  "name": "Cronômetro Digital",
+  "short_name": "Cronômetro",
+  "description": "Cronômetro online grátis com milissegundos, voltas e atalhos de teclado. Ideal para estudo Pomodoro, esportes e cubo mágico.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "lang": "pt-BR",
+  "theme_color": "#0a0a0a",
+  "background_color": "#0a0a0a",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "maskable any"
     },
     {
       "src": "/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "maskable any"
     }
-  ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone"
+  ]
 }

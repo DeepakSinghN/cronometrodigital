@@ -1,0 +1,240 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+const articleSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Início",
+        "item": "https://cronometrodigital.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://cronometrodigital.com/blog"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Cronômetro para Cubo Mágico",
+        "item": "https://cronometrodigital.com/blog/cronometro-para-cubo-magico-speedcubing"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Cronômetro para Cubo Mágico Online: Como Medir Tempos no Speedcubing",
+    "description": "Guia prático para speedcubers: como usar um cronômetro online com milissegundos, regras de inspeção da WCA, cálculo de Ao5 e atalhos na barra de espaço.",
+    "url": "https://cronometrodigital.com/blog/cronometro-para-cubo-magico-speedcubing",
+    "inLanguage": "pt-BR",
+    "datePublished": "2026-10-23T08:30:00+00:00",
+    "dateModified": "2026-10-23T08:30:00+00:00",
+    "author": {
+      "@type": "Organization",
+      "name": "Equipe Editorial Cronômetro Digital",
+      "url": "https://cronometrodigital.com/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Cronômetro Digital",
+      "url": "https://cronometrodigital.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://cronometrodigital.com/favicon-96x96.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://cronometrodigital.com/blog/cronometro-para-cubo-magico-speedcubing"
+    }
+  }
+];
+---
+
+<Layout
+  title="Cronômetro para Cubo Mágico Online: Como Medir no Speedcubing | Cronômetro Digital"
+  description="Aprenda a cronometrar suas resoluções de cubo mágico com precisão de milissegundos. Regras da WCA, cálculo de média Ao5 e atalhos rápidos de teclado."
+  canonicalPath="/blog/cronometro-para-cubo-magico-speedcubing"
+  schema={articleSchema}
+>
+  <Navbar />
+
+  <main class="w-full flex-1 max-w-4xl mx-auto px-4 py-12">
+    <!-- Breadcrumb Visual Navigation -->
+    <nav class="mb-6 flex items-center gap-2 text-xs font-mono-custom text-[var(--text-mute)]" aria-label="Navegação Estrutural">
+      <a href="/" class="hover:text-[var(--led-color)] transition-colors">Início</a>
+      <span>/</span>
+      <a href="/blog" class="hover:text-[var(--led-color)] transition-colors">Blog</a>
+      <span>/</span>
+      <span class="text-[var(--text-ink)] truncate max-w-xs sm:max-w-md">Cronômetro para Cubo Mágico</span>
+    </nav>
+
+    <!-- Cabeçalho do Artigo -->
+    <header class="mb-10">
+      <div class="flex flex-wrap items-center gap-3 mb-4">
+        <span class="font-mono-custom text-xs font-semibold uppercase tracking-wider text-[var(--led-color)] bg-[var(--led-color)]/10 px-3 py-1 rounded-full border border-[var(--border-hairline)]">
+          Speedcubing & Jogos
+        </span>
+        <span class="text-xs font-mono-custom text-[var(--text-mute)]">
+          📅 23 de Outubro de 2026 • ⏱️ 6 min de leitura
+        </span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-[var(--text-ink)] mb-4 leading-tight">
+        Cronômetro para Cubo Mágico Online: Como Medir Tempos no Speedcubing
+      </h1>
+
+      <p class="text-base sm:text-lg text-[var(--text-body)] leading-relaxed">
+        No universo do <strong>speedcubing</strong>, cada fração de segundo faz a diferença entre bater seu recorde pessoal (PB) ou ficar estagnado. Descubra como usar um <strong>cronômetro para cubo mágico</strong> online com precisão de milissegundos e atalhos na barra de espaço para treinar como um profissional.
+      </p>
+    </header>
+
+    <!-- Conteúdo do Artigo -->
+    <article class="space-y-8 text-sm sm:text-base text-[var(--text-body)] leading-relaxed">
+      <!-- 1. Por que milissegundos importam -->
+      <section class="geist-card p-6 sm:p-8 space-y-4">
+        <h2 class="text-2xl font-bold text-[var(--text-ink)]">
+          1. Por Que a Precisão de Milissegundos é Crucial no Speedcubing?
+        </h2>
+        <p>
+          Resolver o cubo mágico 3x3x3 em nível competitivo exige cronometragem fiel até o terceiro dígito decimal (milésimos de segundo). Um cronômetro comum de smartphone que mede apenas centésimos ou sofre com atrasos de toque não reflete seu tempo real de prova.
+        </p>
+        <p>
+          O <strong>Cronômetro Digital</strong> utiliza o relógio de alta resolução da web (<code class="font-mono-custom text-xs bg-[var(--bg-canvas)] px-1.5 py-0.5 rounded">performance.now()</code>), eliminando o atraso de interface (input lag) e registrando seus tempos com exatidão científica.
+        </p>
+      </section>
+
+      <!-- 2. A Regra dos 15 Segundos da WCA -->
+      <section class="geist-card p-6 sm:p-8 space-y-4">
+        <h2 class="text-2xl font-bold text-[var(--text-ink)]">
+          2. A Regra dos 15 Segundos de Inspeção da WCA
+        </h2>
+        <p>
+          Nas competições oficiais organizadas pela <strong>WCA (World Cube Association)</strong>, todo competidor tem direito a até 15 segundos para inspecionar o cubo embaralhado antes de iniciar a resolução.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
+          <div class="p-4 rounded-xl bg-[var(--bg-canvas)] border border-[var(--border-hairline)]">
+            <h3 class="font-bold text-[var(--text-ink)] mb-1">⏱️ Fase de Inspeção (0 a 15 segundos)</h3>
+            <p class="text-[var(--text-mute)]">Durante esse tempo, você planeja a cruz (cross) ou os primeiros blocos sem girar nenhuma face do cubo.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-[var(--bg-canvas)] border border-[var(--border-hairline)]">
+            <h3 class="font-bold text-[var(--text-ink)] mb-1">⚠️ Penalidades Oficiais</h3>
+            <p class="text-[var(--text-mute)]">Passar de 15 segundos gera penalidade de +2 segundos; passar de 17 segundos resulta em desclassificação (DNF - Did Not Finish).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Single vs Ao5 vs Ao12 -->
+      <section class="geist-card p-6 sm:p-8 space-y-4">
+        <h2 class="text-2xl font-bold text-[var(--text-ink)]">
+          3. Como Calcular Single, Ao5 (Média de 5) e Ao12
+        </h2>
+        <p>
+          No speedcubing, seu melhor tempo isolado chama-se <strong>Single</strong>. No entanto, o padrão oficial de avaliação competitiva é a média de 5 tentativas, conhecida como <strong>Ao5 (Average of 5)</strong>:
+        </p>
+        <ul class="list-disc pl-5 space-y-2">
+          <li><strong>Como o Ao5 é calculado:</strong> Você realiza 5 resoluções consecutivas. Em seguida, descarta o melhor tempo (o mais rápido) e o pior tempo (o mais lento). A média aritmética é calculada sobre os 3 tempos restantes.</li>
+          <li><strong>Registro Automático com Voltas:</strong> No nosso <a href="/" class="text-[var(--led-color)] font-semibold hover:underline">cronômetro online</a>, você aperta a tecla <strong>L</strong> ao fim de cada tentativa para gravar a volta. O sistema destaca automaticamente o seu tempo mais veloz em verde e o mais lento em vermelho, tornando o cálculo do Ao5 super simples!</li>
+        </ul>
+      </section>
+
+      <!-- 4. Como Usar os Atalhos de Teclado -->
+      <section class="geist-card p-6 sm:p-8 space-y-4">
+        <h2 class="text-2xl font-bold text-[var(--text-ink)]">
+          4. Atalhos de Teclado para Treinar Sem Mouse
+        </h2>
+        <p>
+          Para simular o clássico cronômetro <em>Stackmat</em> de campeonatos, você pode controlar tudo direto pelo teclado do seu computador ou notebook:
+        </p>
+        <div class="overflow-x-auto pt-2">
+          <table class="w-full text-xs font-mono-custom border border-[var(--border-hairline)] rounded-xl overflow-hidden">
+            <thead class="bg-[var(--bg-canvas)] text-[var(--text-ink)] border-b border-[var(--border-hairline)]">
+              <tr>
+                <th class="p-3 text-left">Tecla</th>
+                <th class="p-3 text-left">Ação no Speedcubing</th>
+                <th class="p-3 text-left">Benefício</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[var(--border-hairline)]">
+              <tr>
+                <td class="p-3 text-[var(--led-color)] font-bold">Barra de Espaço</td>
+                <td class="p-3">Iniciar / Parar o tempo</td>
+                <td class="p-3 text-[var(--text-mute)]">Solte a barra para começar a resolver; bata nela ao terminar</td>
+              </tr>
+              <tr>
+                <td class="p-3 text-[var(--led-color)] font-bold">Tecla L</td>
+                <td class="p-3">Registrar Volta (Lap)</td>
+                <td class="p-3 text-[var(--text-mute)]">Mede tempos parciais (ex: Cruz + F2L vs OLL + PLL)</td>
+              </tr>
+              <tr>
+                <td class="p-3 text-[var(--led-color)] font-bold">Tecla R</td>
+                <td class="p-3">Resetar Cronômetro</td>
+                <td class="p-3 text-[var(--text-mute)]">Zera a contagem para o próximo scramble</td>
+              </tr>
+              <tr>
+                <td class="p-3 text-[var(--led-color)] font-bold">Tecla F</td>
+                <td class="p-3">Modo Tela Cheia</td>
+                <td class="p-3 text-[var(--text-mute)]">Display LED gigante sem distrações visuais</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 5. Dicas de Treino CFOP / Fridrich -->
+      <section class="geist-card p-6 sm:p-8 space-y-4">
+        <h2 class="text-2xl font-bold text-[var(--text-ink)]">
+          5. Dica de Ouro: Cronometre as Etapas do Método CFOP
+        </h2>
+        <p>
+          Se você utiliza o método avançado <strong>CFOP (Fridrich)</strong>, use a tecla <strong>L</strong> do cronômetro para medir o tempo gasto em cada etapa separadamente:
+        </p>
+        <ol class="list-decimal pl-5 space-y-2">
+          <li><strong>Cross (Cruz):</strong> Almeje fazer em menos de 2 a 3 segundos durante a inspeção.</li>
+          <li><strong>F2L (First Two Layers):</strong> Responsável por cerca de 50% a 60% do tempo total da resolução. Cronometrar essa etapa isolada revela onde estão suas pausas desnecessárias.</li>
+          <li><strong>OLL & PLL:</strong> As etapas finais de orientação e permutação da última camada devem ser resolvidas com reconhecimento rápido e execução sem hesitação.</li>
+        </ol>
+      </section>
+
+      <!-- Banner CTA -->
+      <div class="geist-card p-8 text-center rounded-2xl bg-gradient-to-b from-[var(--bg-elevated)] to-[var(--bg-canvas)] border border-[var(--led-color)]/30 space-y-4">
+        <h3 class="text-xl sm:text-2xl font-bold text-[var(--text-ink)]">
+          Pronto para bater seu próximo Recorde Pessoal (PB)?
+        </h3>
+        <p class="text-xs sm:text-sm text-[var(--text-body)] max-w-xl mx-auto">
+          Pegue seu cubo, embaralhe e use nosso <strong>cronômetro de cubo mágico online</strong> com tela cheia, precisão instantânea e exportação dos seus tempos em planilha CSV.
+        </p>
+        <div class="pt-2">
+          <a 
+            href="/" 
+            class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[var(--led-color)] text-black font-bold text-sm hover:opacity-90 active:scale-[0.98] transition-all shadow-lg"
+          >
+            <span>Treinar Speedcubing Agora</span>
+            <span>🧊⏱️</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Links Internos Recomendados -->
+      <div class="pt-6 border-t border-[var(--border-hairline)] flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+        <a href="/blog" class="text-[var(--text-mute)] hover:text-[var(--led-color)] transition-colors">
+          ← Voltar para todos os artigos
+        </a>
+        <a href="/blog/tecnica-pomodoro-com-cronometro-guia-estudos" class="text-[var(--led-color)] font-semibold hover:underline flex items-center gap-1">
+          <span>Artigo Anterior: Técnica Pomodoro com Cronômetro</span>
+          <span>→</span>
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</Layout>

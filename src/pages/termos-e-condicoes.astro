@@ -2,12 +2,42 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+
+const termsSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Início",
+        "item": "https://cronometrodigital.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Termos e Condições",
+        "item": "https://cronometrodigital.com/termos-e-condicoes"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Termos e Condições | Cronômetro Digital",
+    "url": "https://cronometrodigital.com/termos-e-condicoes",
+    "description": "Termos e Condições de Uso da plataforma Cronômetro Digital sob a legislação da República Federativa do Brasil.",
+    "inLanguage": "pt-BR"
+  }
+];
 ---
 
 <Layout 
-  title="Termos e Condições | Cronômetro Digital" 
-  description="Termos e Condições de uso do Cronômetro Digital (cronometrodigital.com). Leia antes de usar nossa plataforma de cronômetro online."
+  title="Termos e Condições de Uso | Cronômetro Digital" 
+  description="Termos e Condições de uso do Cronômetro Digital (cronometrodigital.com). Regras de utilização da plataforma e conformidade legal brasileira."
   canonicalPath="/termos-e-condicoes"
+  schema={termsSchema}
 >
   <Navbar />
 
@@ -15,57 +45,77 @@ import Footer from '../components/Footer.astro';
     <!-- Cabeçalho -->
     <div class="mb-10 text-center">
       <span class="font-mono-custom text-xs uppercase tracking-widest text-[var(--text-mute)] bg-[var(--bg-elevated)] px-3 py-1 rounded-full border border-[var(--border-hairline)] mb-3 inline-block">
-        TERMOS DE SERVIÇO
+        TERMOS DE SERVIÇO & JURISDIÇÃO BRASILEIRA
       </span>
       <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-[var(--text-ink)] mb-4">
-        Termos e Condições
+        Termos e Condições de Uso
       </h1>
       <p class="text-xs font-mono-custom text-[var(--text-mute)]">
-        Data de Vigência: 6 de setembro de 2026 • Domínio: cronometrodigital.com
+        Última Atualização: Outubro de 2026 • Foro e Legislação da República Federativa do Brasil • Domínio: cronometrodigital.com
       </p>
     </div>
 
     <!-- Conteúdo -->
     <div class="space-y-6 text-sm text-[var(--text-body)] leading-relaxed">
+      <!-- 1. Aceitação dos Termos -->
       <div class="geist-card p-6 sm:p-8 space-y-4">
-        <h2 class="text-xl font-bold text-[var(--text-ink)]">1. Aceitação dos Termos</h2>
+        <h2 class="text-xl font-bold text-[var(--text-ink)]">1. Aceitação e Objeto</h2>
         <p>
-          Ao acessar e usar o <strong>Cronômetro Digital</strong> (<code class="font-mono-custom text-xs bg-[var(--bg-canvas)] px-1.5 py-0.5 rounded">cronometrodigital.com</code>), você concorda em cumprir e estar vinculado a estes Termos e Condições. Se não concordar com estes termos, por favor não use nosso site.
+          Ao acessar e utilizar o site <strong>Cronômetro Digital</strong> (<code class="font-mono-custom text-xs bg-[var(--bg-canvas)] px-1.5 py-0.5 rounded">cronometrodigital.com</code>), você manifesta sua concordância integral e irrevogável com estes Termos e Condições de Uso, bem como com a nossa <a href="/politica-de-privacidade" class="text-[var(--led-color)] font-semibold hover:underline">Política de Privacidade</a>. Caso não concorde com qualquer disposição aqui estabelecida, solicitamos que interrompa imediatamente o uso dos nossos serviços.
+        </p>
+        <p>
+          O <strong>Cronômetro Digital</strong> disponibiliza uma plataforma web utilitária de <strong>cronômetro online gratuito</strong> de alta precisão com suporte a voltas fracionadas, atalhos de teclado, modo de estudo Pomodoro, cubo mágico e treinos esportivos.
         </p>
       </div>
 
+      <!-- 2. Condições de Uso Permitido -->
       <div class="geist-card p-6 sm:p-8 space-y-4">
-        <h2 class="text-xl font-bold text-[var(--text-ink)]">2. Uso Permitido</h2>
+        <h2 class="text-xl font-bold text-[var(--text-ink)]">2. Condições de Uso Permitido</h2>
         <p>
-          O Cronômetro Digital é fornecido gratuitamente para fins pessoais, esportivos, educacionais e comerciais de cronometragem. Você concorda em usar o site apenas para fins legais e de maneira que não infrinja os direitos de outros nem restrinja o uso da plataforma por terceiros.
+          Nossa ferramenta é fornecida gratuitamente e sem exigência de assinatura ou cadastro prévio. Você se compromete a:
+        </p>
+        <ul class="list-disc pl-5 space-y-2 text-xs text-[var(--text-mute)]">
+          <li>Utilizar a plataforma exclusivamente para finalidades lícitas, pessoais, educacionais, esportivas ou profissionais de medição temporal;</li>
+          <li>Não realizar ataques de negação de serviço (DDoS), engenharia reversa maliciosa com intuito de sobrecarregar servidores ou envio automatizado abusivo de requisições;</li>
+          <li>Não incorporar o serviço em frames fraudulentos ou páginas que violem direitos de terceiros ou as leis brasileiras vigentes.</li>
+        </ul>
+      </div>
+
+      <!-- 3. Precisão Técnica e Isenção de Garantias -->
+      <div class="geist-card p-6 sm:p-8 space-y-4">
+        <h2 class="text-xl font-bold text-[var(--text-ink)]">3. Precisão Técnica e Isenção de Garantias</h2>
+        <p>
+          O <strong>Cronômetro Digital</strong> utiliza as APIs de tempo de maior resolução suportadas pelos padrões web modernos (<code class="font-mono-custom text-xs bg-[var(--bg-canvas)] px-1.5 py-0.5 rounded">performance.now()</code> e relógio de alta fidelidade do navegador). No entanto, o serviço é disponibilizado no estado em que se encontra ("<em>as is</em>") e conforme a disponibilidade técnica do dispositivo e navegador do usuário.
+        </p>
+        <p class="text-xs text-[var(--text-mute)]">
+          Não recomendamos o uso exclusivo desta ferramenta web como único instrumento de segurança para aplicações críticas industriais, de suporte médico à vida ou competições oficiais que exijam certificação homologada por órgãos metrológicos reguladores (como Inmetro).
         </p>
       </div>
 
+      <!-- 4. Propriedade Intelectual -->
       <div class="geist-card p-6 sm:p-8 space-y-4">
-        <h2 class="text-xl font-bold text-[var(--text-ink)]">3. Isenção de Garantias</h2>
+        <h2 class="text-xl font-bold text-[var(--text-ink)]">4. Direitos Autorais e Propriedade Intelectual</h2>
         <p>
-          A aplicação e os serviços de cronometragem são fornecidos "NO ESTADO EM QUE SE ENCONTRAM" e "CONFORME DISPONÍVEIS". Embora nos esforcemos pela máxima precisão usando ferramentas de temporização de alta resolução do navegador, o Cronômetro Digital não oferece garantias expressas ou implícitas quanto ao desempenho ininterrupto ou precisão absoluta para aplicações críticas de segurança.
+          Todos os elementos visuais, código-fonte, layout, marcas, ícones e arquitetura do <strong>Cronômetro Digital</strong> são protegidos pela Lei de Direitos Autorais (Lei Federal nº 9.610/1998) e pela Lei de Propriedade Industrial (Lei Federal nº 9.279/1996). É vedada a cópia não autorizada da identidade visual para criação de serviços concorrentes fraudulentos.
         </p>
       </div>
 
+      <!-- 5. Legislação Aplicável e Foro de Eleição (Brasil) -->
       <div class="geist-card p-6 sm:p-8 space-y-4">
-        <h2 class="text-xl font-bold text-[var(--text-ink)]">4. Limitação de Responsabilidade</h2>
+        <h2 class="text-xl font-bold text-[var(--text-ink)]">5. Legislação Aplicável e Foro Competente</h2>
         <p>
-          Em nenhuma hipótese o Cronômetro Digital, seus desenvolvedores ou afiliados serão responsáveis por quaisquer danos diretos, indiretos, incidentais ou consequentes resultantes do uso ou incapacidade de uso do <strong>cronômetro online</strong>.
+          Estes Termos e Condições são regidos, interpretados e executados segundo a legislação brasileira, em especial o <strong>Marco Civil da Internet (Lei Federal nº 12.965/2014)</strong>, o <strong>Código Civil Brasileiro (Lei Federal nº 10.406/2002)</strong> e o <strong>Código de Defesa do Consumidor (Lei Federal nº 8.078/1990)</strong>, naquilo que for aplicável.
+        </p>
+        <p>
+          Fica eleito o foro da comarca de domicílio do usuário no território nacional do <strong>Brasil</strong> para dirimir quaisquer controvérsias decorrentes destes Termos, com expressa renúncia a qualquer outro, por mais privilegiado que seja ou venha a ser.
         </p>
       </div>
 
+      <!-- 6. Contato e Esclarecimentos -->
       <div class="geist-card p-6 sm:p-8 space-y-4">
-        <h2 class="text-xl font-bold text-[var(--text-ink)]">5. Propriedade Intelectual</h2>
+        <h2 class="text-xl font-bold text-[var(--text-ink)]">6. Dúvidas e Atendimento</h2>
         <p>
-          Toda a identidade visual, código, elementos de design e logotipos associados ao Cronômetro Digital são propriedade de cronometrodigital.com, salvo indicação em contrário.
-        </p>
-      </div>
-
-      <div class="geist-card p-6 sm:p-8 space-y-4">
-        <h2 class="text-xl font-bold text-[var(--text-ink)]">6. Informações de Contato</h2>
-        <p>
-          Para dúvidas sobre estes Termos e Condições, visite nossa <a href="/contato" class="text-[var(--led-color)] font-semibold hover:underline">página de Contato</a>.
+          Para obter suporte, esclarecimentos adicionais sobre estes termos ou sugestões de melhorias, consulte nossa <a href="/contato" class="text-[var(--led-color)] font-semibold hover:underline">página de contato</a> ou escreva para <a href="mailto:lifeturningpoint007@gmail.com" class="text-[var(--led-color)] font-semibold hover:underline">lifeturningpoint007@gmail.com</a>.
         </p>
       </div>
     </div>

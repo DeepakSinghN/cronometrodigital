@@ -5,15 +5,24 @@ interface Props {
   title?: string;
   description?: string;
   canonicalPath?: string;
+  noindex?: boolean;
+  schema?: Record<string, any> | Array<Record<string, any>>;
 }
 
 const { 
-  title = "Cronometro Online Grátis | Cronômetro Digital com Voltas e Milissegundos", 
-  description = "Cronometro online grátis com precisão de milissegundos. Use o cronometro digital para estudo, esportes, cubo mágico, Pomodoro e muito mais. Funciona no celular e computador.",
-  canonicalPath = ""
+  title = "Cronômetro Online Grátis | Cronômetro com Voltas e Milissegundos", 
+  description = "Cronômetro online grátis com precisão de milissegundos. Display LED, registro de voltas, atalhos de teclado e modo tela cheia. Grátis, sem cadastro.",
+  canonicalPath = "",
+  noindex = false,
+  schema
 } = Astro.props;
 
-const canonicalUrl = `https://cronometrodigital.com${canonicalPath}`;
+// Root URL has trailing slash; subpages do not (matching trailingSlash: 'never')
+const canonicalUrl = (!canonicalPath || canonicalPath === '/')
+  ? 'https://cronometrodigital.com/'
+  : `https://cronometrodigital.com${canonicalPath.replace(/\/+$/, '')}`;
+
+const schemaList = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 ---
 
 <!doctype html>
@@ -36,7 +45,7 @@ const canonicalUrl = `https://cronometrodigital.com${canonicalPath}`;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="cronometro digital" />
+    <meta name="apple-mobile-web-app-title" content="Cronômetro Digital" />
     <link rel="manifest" href="/site.webmanifest" />
 
     <meta name="generator" content={Astro.generator} />
@@ -44,9 +53,13 @@ const canonicalUrl = `https://cronometrodigital.com${canonicalPath}`;
     <!-- SEO & Metadata (Portuguese) -->
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content="cronometro, cronômetro, cronometro online, cronômetro online, cronometro digital, cronômetro digital, cronometro regressivo, cronometro de estudo, cronometro cubo magico, cronometro regressivo online, cronometro pomodoro, conometro, cronometro gratis" />
+
     <meta name="author" content="Cronômetro Digital" />
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    {noindex ? (
+      <meta name="robots" content="noindex, nofollow" />
+    ) : (
+      <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    )}
     <meta name="language" content="pt-BR" />
     
     <!-- Geo Targeting: Brazil & Portuguese-speaking countries -->
@@ -56,12 +69,9 @@ const canonicalUrl = `https://cronometrodigital.com${canonicalPath}`;
     <meta name="ICBM" content="-14.235, -51.9253" />
     <link rel="canonical" href={canonicalUrl} />
     
-    <!-- hreflang: Portuguese (all Portuguese-speaking countries) -->
+    <!-- hreflang: Portuguese (generic), Portuguese (BR) & Fallback -->
     <link rel="alternate" hreflang="pt" href={canonicalUrl} />
     <link rel="alternate" hreflang="pt-BR" href={canonicalUrl} />
-    <link rel="alternate" hreflang="pt-PT" href={canonicalUrl} />
-    <link rel="alternate" hreflang="pt-AO" href={canonicalUrl} />
-    <link rel="alternate" hreflang="pt-MZ" href={canonicalUrl} />
     <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
     
     <!-- Open Graph / Facebook / WhatsApp -->
@@ -71,88 +81,49 @@ const canonicalUrl = `https://cronometrodigital.com${canonicalPath}`;
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="Cronômetro Digital" />
     <meta property="og:locale" content="pt_BR" />
+    <meta property="og:image" content="https://cronometrodigital.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="Cronômetro Digital Online Grátis com Voltas e Milissegundos" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://cronometrodigital.com/og-image.png" />
     
-    <!-- Schema.org Structured Data (Portuguese) -->
-    <script type="application/ld+json">
+    <!-- WebSite & Organization Structured Data (Global) -->
+    <script is:inline type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Cronômetro Digital",
-      "url": "https://cronometrodigital.com",
-      "description": "Cronômetro online grátis com precisão de milissegundos para estudo, esportes, Pomodoro, cubo mágico e muito mais.",
-      "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "Web",
-      "inLanguage": "pt-BR",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "BRL"
-      },
-      "featureList": [
-        "Cronômetro online com milissegundos",
-        "Registro de voltas",
-        "Modo tela cheia",
-        "Cronômetro de estudo Pomodoro",
-        "Cronômetro regressivo online",
-        "Exportar dados em CSV"
-      ]
-    }
-    </script>
-    
-    <!-- FAQ Schema (JSON-LD) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
+      "@graph": [
         {
-          "@type": "Question",
-          "name": "O cronômetro online é completamente gratuito?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Sim! O Cronômetro Digital é 100% gratuito, sem necessidade de cadastro, sem taxas de assinatura e sem anúncios intrusivos. Use o cronômetro online diretamente no navegador, a qualquer momento."
-          }
+          "@type": "WebSite",
+          "@id": "https://cronometrodigital.com/#website",
+          "url": "https://cronometrodigital.com/",
+          "name": "Cronômetro Digital",
+          "description": "Cronômetro online grátis com precisão de milissegundos para estudo, esportes, Pomodoro, cubo mágico e muito mais.",
+          "inLanguage": "pt-BR"
         },
         {
-          "@type": "Question",
-          "name": "O cronômetro continua funcionando se eu trocar de aba?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Sim! O motor do cronômetro calcula o tempo decorrido com base em timestamps do relógio do sistema (performance.now()), garantindo zero perda de precisão mesmo que a aba esteja em segundo plano ou minimizada."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Como exportar o histórico de voltas?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Clique no botão Exportar CSV para baixar uma planilha com todos os números de volta, durações e tempos totais, ou use Copiar Voltas para colar o texto formatado rapidamente."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Como usar o cronômetro de estudo com a técnica Pomodoro?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Inicie o cronômetro de estudo, estude por 25 minutos, depois pressione L para registrar a volta (seu intervalo de estudo). Faça uma pausa de 5 minutos e repita. O cronômetro Pomodoro online é perfeito para rastrear seus ciclos de produtividade."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "O cronômetro funciona no celular?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Sim! O cronômetro digital é totalmente responsivo e funciona perfeitamente em smartphones Android e iPhone, além de tablets e computadores com qualquer navegador moderno."
+          "@type": "Organization",
+          "@id": "https://cronometrodigital.com/#organization",
+          "name": "Cronômetro Digital",
+          "url": "https://cronometrodigital.com/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://cronometrodigital.com/favicon-96x96.png"
           }
         }
       ]
     }
     </script>
+    
+    <!-- Page-Specific Structured Data -->
+    {schemaList.map((item) => (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />
+    ))}
     
     <!-- Inline theme script to prevent flash of wrong theme -->
     <script is:inline>

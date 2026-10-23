@@ -1,2 +1,17 @@
 # Cloudflare Pages Redirects
+
+# Hard Redirect: Block staging domain from being indexed (SEO Critical Fix)
+https://cronometrodigital.pages.dev/* https://cronometrodigital.com/:splat 301!
+
+# Sitemap alias
 /sitemap.xml /sitemap-index.xml 200
+
+# 301 Permanent Redirects: Old English URLs -> New Canonical Portuguese URLs
+/about-us /sobre-nos 301
+/about-us/ /sobre-nos 301
+/contact-us /contato 301
+/contact-us/ /contato 301
+/privacy-policy /politica-de-privacidade 301
+/privacy-policy/ /politica-de-privacidade 301
+/terms-and-conditions /termos-e-condicoes 301
+/terms-and-conditions/ /termos-e-condicoes 301

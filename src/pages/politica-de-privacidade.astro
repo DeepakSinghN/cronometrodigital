@@ -2,12 +2,42 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+
+const privacySchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Início",
+        "item": "https://cronometrodigital.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Política de Privacidade",
+        "item": "https://cronometrodigital.com/politica-de-privacidade"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Política de Privacidade | Cronômetro Digital",
+    "url": "https://cronometrodigital.com/politica-de-privacidade",
+    "description": "Política de Privacidade do Cronômetro Digital em total conformidade com a LGPD (Lei Geral de Proteção de Dados - Lei Federal nº 13.709/2018).",
+    "inLanguage": "pt-BR"
+  }
+];
 ---
 
 <Layout 
   title="Política de Privacidade | Cronômetro Digital" 
-  description="Política de Privacidade do Cronômetro Digital (cronometrodigital.com). Saiba como respeitamos sua privacidade e processamos dados localmente."
+  description="Política de Privacidade do Cronômetro Digital (cronometrodigital.com). Em total conformidade com a LGPD (Lei 13.709/2018) e proteção aos dados do usuário."
   canonicalPath="/politica-de-privacidade"
+  schema={privacySchema}
 >
   <Navbar />
 
@@ -15,58 +45,104 @@ import Footer from '../components/Footer.astro';
     <!-- Cabeçalho -->
     <div class="mb-10 text-center">
       <span class="font-mono-custom text-xs uppercase tracking-widest text-[var(--text-mute)] bg-[var(--bg-elevated)] px-3 py-1 rounded-full border border-[var(--border-hairline)] mb-3 inline-block">
-        LEGAL & PRIVACIDADE
+        LEGAL & CONFORMIDADE LGPD
       </span>
       <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-[var(--text-ink)] mb-4">
         Política de Privacidade
       </h1>
       <p class="text-xs font-mono-custom text-[var(--text-mute)]">
-        Data de Vigência: 6 de setembro de 2026 • Domínio: cronometrodigital.com
+        Última Atualização: Outubro de 2026 • Em Conformidade com a Lei Federal nº 13.709/2018 (LGPD) • Domínio: cronometrodigital.com
       </p>
     </div>
 
     <!-- Conteúdo -->
     <div class="space-y-6 text-sm text-[var(--text-body)] leading-relaxed">
+      <!-- 1. Compromisso com a Privacidade e LGPD -->
       <div class="geist-card p-6 sm:p-8 space-y-4">
-        <h2 class="text-xl font-bold text-[var(--text-ink)]">1. Informações que Coletamos</h2>
+        <h2 class="text-xl font-bold text-[var(--text-ink)] flex items-center gap-2">
+          <span>1. Compromisso com a Privacidade e a LGPD</span>
+        </h2>
         <p>
-          No <strong>Cronômetro Digital</strong>, respeitamos sua privacidade. Não exigimos cadastro, login ou informações pessoais (como nome, endereço de e-mail ou número de telefone) para usar nosso <strong>cronômetro online</strong>.
+          O <strong>Cronômetro Digital</strong> (<code class="font-mono-custom text-xs bg-[var(--bg-canvas)] px-1.5 py-0.5 rounded">cronometrodigital.com</code>) assume o compromisso de proteger a privacidade, os dados e a autodeterminação informativa de todos os seus usuários no Brasil e internacionalmente, atuando em rigorosa conformidade com a <strong>Lei Geral de Proteção de Dados Pessoais do Brasil (LGPD — Lei Federal nº 13.709/2018)</strong> e o <strong>Marco Civil da Internet (Lei Federal nº 12.965/2014)</strong>.
+        </p>
+        <p>
+          Nosso serviço de <strong>cronômetro online gratuito</strong> foi concebido sob o princípio de <em>Privacy by Design</em> (Privacidade desde a Concepção): não solicitamos cadastro, e-mail, senha, telefone ou qualquer outro dado pessoal identificável para acesso às ferramentas de temporização.
         </p>
       </div>
 
+      <!-- 2. Dados Pessoais e Armazenamento Local -->
       <div class="geist-card p-6 sm:p-8 space-y-4">
-        <h2 class="text-xl font-bold text-[var(--text-ink)]">2. Armazenamento Local do Navegador</h2>
+        <h2 class="text-xl font-bold text-[var(--text-ink)]">2. Armazenamento Local do Navegador (Client-Side)</h2>
         <p>
-          Nossa aplicação web usa o <code class="font-mono-custom text-xs bg-[var(--bg-canvas)] px-1.5 py-0.5 rounded">localStorage</code> do seu navegador para salvar suas preferências de interface (como modo claro ou escuro e configurações de cor do LED). Esses dados ficam armazenados exclusivamente no seu dispositivo e jamais são transmitidos para servidores externos.
+          Toda a lógica e preferências do cronômetro — como o registro de voltas (laps), alternância entre tema claro/escuro e configurações visuais de cor do display LED — são processadas e armazenadas estritamente no <code class="font-mono-custom text-xs bg-[var(--bg-canvas)] px-1.5 py-0.5 rounded">localStorage</code> do seu próprio navegador.
+        </p>
+        <p class="text-xs text-[var(--text-mute)]">
+          <strong>Importante:</strong> Esses dados ficam exclusivamente no seu dispositivo e jamais são transmitidos, sincronizados ou gravados em servidores externos de nossa propriedade. Você pode limpá-los a qualquer momento apagando os dados de navegação do seu navegador web.
         </p>
       </div>
 
+      <!-- 3. Google Analytics 4 (GA4) e Métricas de Desempenho -->
       <div class="geist-card p-6 sm:p-8 space-y-4">
-        <h2 class="text-xl font-bold text-[var(--text-ink)]">3. Análise e Cookies</h2>
+        <h2 class="text-xl font-bold text-[var(--text-ink)]">3. Métricas de Acesso e Google Analytics 4 (GA4)</h2>
         <p>
-          O Cronômetro Digital pode usar cache padrão do navegador e utilitários de medição de performance para monitorar tráfego web, otimizar velocidades de entrega do site e garantir alta confiabilidade. Nenhuma informação pessoalmente identificável é coletada ou armazenada.
+          Para entender métricas agregadas de desempenho, estabilidade técnica e aprimorar a experiência do usuário com nosso <strong>cronômetro digital</strong>, utilizamos o <strong>Google Analytics 4 (GA4)</strong>.
+        </p>
+        <ul class="list-disc pl-5 space-y-2 text-xs text-[var(--text-mute)]">
+          <li><strong>Anonimização de IP:</strong> O Google Analytics 4 utiliza mascaramento e anonimização de endereços IP por padrão, impossibilitando a identificação individual de usuários.</li>
+          <li><strong>Cookies Técnicos:</strong> Cookies de medição estatística anônima podem ser utilizados para aferir tempo de permanência, tipos de dispositivos (mobile/desktop) e taxas de erro técnico.</li>
+          <li><strong>Sem Venda ou Compartilhamento Comercial:</strong> Não comercializamos nem compartilhamos quaisquer dados de tráfego com corretores de dados (data brokers) ou empresas de publicidade direcionada.</li>
+        </ul>
+      </div>
+
+      <!-- 4. Direitos do Titular sob a LGPD (Artigo 18) -->
+      <div class="geist-card p-6 sm:p-8 space-y-4">
+        <h2 class="text-xl font-bold text-[var(--text-ink)]">4. Seus Direitos como Titular de Dados (Art. 18 da LGPD)</h2>
+        <p>
+          A legislação brasileira assegura ao titular de dados diversos direitos fundamentais. Uma vez que não coletamos dados pessoais identificáveis em nossos servidores, a maioria das operações ocorre localmente em seu navegador. Não obstante, garantimos o pleno exercício dos seus direitos previstos no Artigo 18 da LGPD:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs pt-1">
+          <div class="p-3 rounded-lg bg-[var(--bg-canvas)] border border-[var(--border-hairline)]">
+            <strong class="text-[var(--text-ink)] block mb-1">Confirmação e Acesso</strong>
+            <span class="text-[var(--text-mute)]">Direito de confirmar a inexistência de armazenamento de dados pessoais em nossos servidores remotos.</span>
+          </div>
+          <div class="p-3 rounded-lg bg-[var(--bg-canvas)] border border-[var(--border-hairline)]">
+            <strong class="text-[var(--text-ink)] block mb-1">Eliminação e Limpeza</strong>
+            <span class="text-[var(--text-mute)]">Facilidade de eliminação imediata de dados locais limpando o cache/localStorage do navegador.</span>
+          </div>
+          <div class="p-3 rounded-lg bg-[var(--bg-canvas)] border border-[var(--border-hairline)]">
+            <strong class="text-[var(--text-ink)] block mb-1">Informação sobre Cookies</strong>
+            <span class="text-[var(--text-mute)]">Transparência total sobre as ferramentas de análise analítica e desativação via navegadores ou extensões.</span>
+          </div>
+          <div class="p-3 rounded-lg bg-[var(--bg-canvas)] border border-[var(--border-hairline)]">
+            <strong class="text-[var(--text-ink)] block mb-1">Revogação e Oposição</strong>
+            <span class="text-[var(--text-mute)]">Direito de revogar consentimento ou solicitar esclarecimentos a qualquer momento via nosso canal de privacidade.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Links de Terceiros e Segurança -->
+      <div class="geist-card p-6 sm:p-8 space-y-4">
+        <h2 class="text-xl font-bold text-[var(--text-ink)]">5. Links Externos e Segurança da Informação</h2>
+        <p>
+          O site opera inteiramente sob protocolo criptografado <strong>HTTPS (SSL/TLS)</strong>, garantindo que todas as conexões entre seu dispositivo e nossos servidores de conteúdo estático sejam blindadas contra interceptação. Nosso site pode conter links para serviços ou documentações externas cujas políticas de privacidade são independentes das nossas.
         </p>
       </div>
 
+      <!-- 6. Canal de Atendimento e Encarregado pelo Tratamento (DPO) -->
       <div class="geist-card p-6 sm:p-8 space-y-4">
-        <h2 class="text-xl font-bold text-[var(--text-ink)]">4. Links de Terceiros</h2>
+        <h2 class="text-xl font-bold text-[var(--text-ink)]">6. Canal de Privacidade e Contato (DPO)</h2>
         <p>
-          Nossa aplicação pode conter links para sites externos ou ferramentas utilitárias. Não somos responsáveis pelas práticas de privacidade ou conteúdo de sites de terceiros. Encorajamos os usuários a revisar as políticas de privacidade de qualquer site que visitem.
+          Para exercer quaisquer direitos previstos pela LGPD, esclarecer dúvidas sobre esta Política de Privacidade ou apresentar solicitações relacionadas a dados, entre em contato diretamente com nossa equipe de privacidade e encarregado pelo tratamento de dados:
         </p>
-      </div>
-
-      <div class="geist-card p-6 sm:p-8 space-y-4">
-        <h2 class="text-xl font-bold text-[var(--text-ink)]">5. Atualizações desta Política</h2>
-        <p>
-          Podemos atualizar esta Política de Privacidade periodicamente para refletir melhorias tecnológicas ou requisitos legais. Qualquer alteração será publicada diretamente nesta página com uma data de vigência atualizada.
-        </p>
-      </div>
-
-      <div class="geist-card p-6 sm:p-8 space-y-4">
-        <h2 class="text-xl font-bold text-[var(--text-ink)]">6. Contato</h2>
-        <p>
-          Se tiver dúvidas sobre esta Política de Privacidade, entre em contato conosco em <a href="/contato" class="text-[var(--led-color)] font-semibold hover:underline">cronometrodigital.com/contato</a>.
-        </p>
+        <div class="p-4 rounded-xl bg-[var(--bg-canvas)] border border-[var(--border-hairline)] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+          <div>
+            <p class="font-bold text-[var(--text-ink)]">Encarregado pelo Tratamento de Dados (DPO / Privacidade)</p>
+            <p class="text-[var(--text-mute)] font-mono-custom mt-0.5">E-mail: <a href="mailto:lifeturningpoint007@gmail.com" class="text-[var(--led-color)] underline">lifeturningpoint007@gmail.com</a></p>
+          </div>
+          <a href="/contato" class="px-4 py-2 rounded-lg bg-[var(--bg-elevated)] border border-[var(--border-hairline)] font-semibold text-[var(--text-ink)] hover:border-[var(--led-color)] transition-colors shrink-0">
+            Página de Contato →
+          </a>
+        </div>
       </div>
     </div>
   </main>

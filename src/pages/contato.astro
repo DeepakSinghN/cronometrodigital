@@ -2,16 +2,52 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+
+const contactSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Início",
+        "item": "https://cronometrodigital.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Contato",
+        "item": "https://cronometrodigital.com/contato"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contato | Cronômetro Digital",
+    "url": "https://cronometrodigital.com/contato",
+    "description": "Entre em contato com a equipe do Cronômetro Digital para dúvidas, sugestões de novos recursos, relatórios técnicos ou privacidade.",
+    "inLanguage": "pt-BR",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Cronômetro Digital",
+      "email": "lifeturningpoint007@gmail.com",
+      "url": "https://cronometrodigital.com/"
+    }
+  }
+];
 ---
 
 <Layout 
-  title="Contato | Cronômetro Digital — cronometrodigital.com" 
-  description="Entre em contato diretamente por e-mail com o Cronômetro Digital (lifeturningpoint007@gmail.com) para suporte, feedback ou dúvidas."
+  title="Contato | Cronômetro Digital — Fale Conosco" 
+  description="Entre em contato diretamente com a equipe do Cronômetro Digital (lifeturningpoint007@gmail.com) para suporte, feedback, sugestões ou dúvidas sobre LGPD."
   canonicalPath="/contato"
+  schema={contactSchema}
 >
   <Navbar />
 
-  <main class="w-full flex-1 max-w-2xl mx-auto px-4 py-16">
+  <main class="w-full flex-1 max-w-3xl mx-auto px-4 py-12">
     <!-- Cabeçalho -->
     <div class="mb-10 text-center">
       <span class="font-mono-custom text-xs uppercase tracking-widest text-[var(--text-mute)] bg-[var(--bg-elevated)] px-3.5 py-1.5 rounded-full border border-[var(--border-hairline)] mb-4 inline-block">
@@ -20,19 +56,19 @@ import Footer from '../components/Footer.astro';
       <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-[var(--text-ink)] mb-4">
         Fale Conosco
       </h1>
-      <p class="text-sm sm:text-base text-[var(--text-body)] max-w-md mx-auto leading-relaxed">
-        Tem alguma dúvida, sugestão de recurso ou relatório de erro? Entre em contato diretamente através do nosso e-mail oficial.
+      <p class="text-sm sm:text-base text-[var(--text-body)] max-w-lg mx-auto leading-relaxed">
+        Tem alguma dúvida sobre o funcionamento do <strong>cronômetro online</strong>, sugestão de recurso ou precisa de suporte? Estamos sempre à disposição.
       </p>
     </div>
 
-    <!-- Card de Contato por E-mail -->
-    <div class="geist-card p-8 sm:p-12 text-center shadow-xl border border-[var(--border-hairline)] rounded-2xl bg-[var(--bg-elevated)]">
+    <!-- Card de Contato Principal -->
+    <div class="geist-card p-8 sm:p-10 text-center shadow-xl border border-[var(--border-hairline)] rounded-2xl bg-[var(--bg-elevated)] mb-8">
       <div class="w-16 h-16 rounded-full bg-[var(--led-color)]/10 text-[var(--led-color)] flex items-center justify-center text-3xl mx-auto mb-6">
         ✉️
       </div>
 
       <h2 class="text-xs uppercase tracking-wider font-semibold text-[var(--text-mute)] mb-2">
-        Nosso Endereço de E-mail
+        Canal Oficial de Atendimento
       </h2>
 
       <!-- Box do E-mail -->
@@ -65,9 +101,55 @@ import Footer from '../components/Footer.astro';
         </a>
       </div>
 
-      <div class="mt-8 pt-6 border-t border-[var(--border-hairline)] text-xs text-[var(--text-mute)] leading-relaxed">
-        ⏱️ Respondemos a todas as mensagens de suporte em até 24 a 48 horas.
+      <div class="mt-6 pt-5 border-t border-[var(--border-hairline)] text-xs text-[var(--text-mute)] leading-relaxed">
+        ⏱️ Respondemos a todas as mensagens de suporte e colaboração em até <strong>24 a 48 horas úteis</strong>.
       </div>
+    </div>
+
+    <!-- Motivos Frequentes de Contato -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+      <div class="geist-card p-5 rounded-xl border border-[var(--border-hairline)]">
+        <h3 class="font-bold text-sm text-[var(--text-ink)] mb-1 flex items-center gap-2">
+          💡 Sugestões de Recursos
+        </h3>
+        <p class="text-xs text-[var(--text-mute)] leading-relaxed">
+          Gostaria de ver novos recursos no cronômetro online (como novos temas, sons de alerta personalizados ou formatos de exportação)? Envie sua ideia!
+        </p>
+      </div>
+
+      <div class="geist-card p-5 rounded-xl border border-[var(--border-hairline)]">
+        <h3 class="font-bold text-sm text-[var(--text-ink)] mb-1 flex items-center gap-2">
+          🐛 Relato de Bugs & Erros
+        </h3>
+        <p class="text-xs text-[var(--text-mute)] leading-relaxed">
+          Encontrou algum comportamento anômalo no registro de voltas ou atalhos de teclado no seu navegador? Informe o modelo do dispositivo e navegador utilizado.
+        </p>
+      </div>
+
+      <div class="geist-card p-5 rounded-xl border border-[var(--border-hairline)]">
+        <h3 class="font-bold text-sm text-[var(--text-ink)] mb-1 flex items-center gap-2">
+          🛡️ Dúvidas de Privacidade (LGPD)
+        </h3>
+        <p class="text-xs text-[var(--text-mute)] leading-relaxed">
+          Para qualquer requisição de titular de dados ou esclarecimentos sobre nossa conformidade com a Lei nº 13.709/2018 (LGPD), este é o canal oficial.
+        </p>
+      </div>
+
+      <div class="geist-card p-5 rounded-xl border border-[var(--border-hairline)]">
+        <h3 class="font-bold text-sm text-[var(--text-ink)] mb-1 flex items-center gap-2">
+          🤝 Parcerias & Divulgação
+        </h3>
+        <p class="text-xs text-[var(--text-mute)] leading-relaxed">
+          Projetos educacionais, clubes esportivos, comunidades de speedcubing ou desenvolvedores interessados em colaborações institucionais são muito bem-vindos.
+        </p>
+      </div>
+    </div>
+
+    <!-- Guia Rápido -->
+    <div class="geist-card p-6 rounded-xl border border-[var(--border-hairline)] text-xs text-[var(--text-body)] space-y-2">
+      <h3 class="font-bold text-sm text-[var(--text-ink)]">Dicas para um suporte mais ágil:</h3>
+      <p>1. Ao reportar erros, mencione se você está utilizando Chrome, Firefox, Safari ou Edge, e se é no computador ou smartphone.</p>
+      <p>2. Dúvidas sobre o funcionamento básico de voltas, atalhos e Pomodoro também podem ser resolvidas diretamente na nossa seção de perguntas frequentes na <a href="/" class="text-[var(--led-color)] underline">Página Inicial</a>.</p>
     </div>
   </main>
 

@@ -5,12 +5,6 @@
 User-agent: *
 Allow: /
 
-# Disallow internal/redirect pages (old English slugs kept for backlinks only)
-Disallow: /about-us/
-Disallow: /privacy-policy/
-Disallow: /terms-and-conditions/
-Disallow: /contact-us/
-
 # Disallow error pages
 Disallow: /404
 Disallow: /500

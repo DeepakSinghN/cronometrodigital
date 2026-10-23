@@ -1,0 +1,500 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const feriadosSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Início",
+        "item": "https://cronometrodigital.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Feriados Nacionais",
+        "item": "https://cronometrodigital.com/feriados"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Feriados Nacionais 2026 e 2027 no Brasil e Portugal | Contagem Regressiva",
+    "url": "https://cronometrodigital.com/feriados",
+    "description": "Consulte o calendário oficial de feriados nacionais de 2026 e 2027 no Brasil e Portugal. Veja as datas, dias da semana e contagem regressiva em tempo real com quantos dias faltam.",
+    "inLanguage": "pt-BR"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Quantos feriados nacionais o Brasil tem em 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "O Brasil possui 9 feriados nacionais fixos mais a Consciência Negra (oficializada nacionalmente pela Lei nº 14.759/2023 em 20 de novembro), além da Sexta-feira Santa e pontos facultativos federais como Carnaval e Corpus Christi."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "O Dia da Consciência Negra é feriado nacional em todo o Brasil?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sim! Pela Lei Federal nº 14.759, sancionada em dezembro de 2023, o dia 20 de novembro (Dia Nacional de Zumbi e da Consciência Negra) tornou-se feriado nacional em todos os estados e municípios brasileiros."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Como funciona a contagem regressiva dos feriados?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nossa ferramenta calcula a diferença exata entre a data e hora do seu dispositivo e a meia-noite do feriado selecionado, exibindo a quantidade de dias restantes atualizada em tempo real."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quais feriados emendam (prolongados) em 2026 e 2027?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Feriados que caem em terças, quintas ou sextas-feiras geralmente geram fins de semana prolongados, como Carnaval, Sexta-feira Santa, Tiradentes e Corpus Christi."
+        }
+      }
+    ]
+  }
+];
+---
+
+<Layout
+  title="Feriados Nacionais 2026 e 2027 no Brasil e Portugal | Contagem Regressiva"
+  description="Consulte o calendário oficial de feriados nacionais de 2026 e 2027 no Brasil e Portugal. Veja datas, dias da semana e contagem regressiva com quantos dias faltam."
+  canonicalPath="/feriados"
+  schema={feriadosSchema}
+>
+  <Navbar />
+
+  <main class="w-full flex-1 max-w-6xl mx-auto px-4 py-12">
+    <!-- Breadcrumb Visual Navigation -->
+    <nav class="mb-6 flex items-center gap-2 text-xs font-mono-custom text-[var(--text-mute)]" aria-label="Navegação Estrutural">
+      <a href="/" class="hover:text-[var(--led-color)] transition-colors">Início</a>
+      <span>/</span>
+      <span class="text-[var(--text-ink)]">Feriados Nacionais</span>
+    </nav>
+
+    <!-- Cabeçalho Principal -->
+    <div class="mb-10 text-center">
+      <span class="font-mono-custom text-xs uppercase tracking-widest text-[var(--text-mute)] bg-[var(--bg-elevated)] px-3.5 py-1.5 rounded-full border border-[var(--border-hairline)] mb-4 inline-block">
+        CALENDÁRIO & TEMPO REAL
+      </span>
+      <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-[var(--text-ink)] mb-4">
+        Feriados Nacionais 2026 & 2027
+      </h1>
+      <p class="text-sm sm:text-base text-[var(--text-body)] max-w-2xl mx-auto leading-relaxed">
+        Confira a lista completa de feriados nacionais no <strong>Brasil 🇧🇷</strong> e em <strong>Portugal 🇵🇹</strong> com contagem regressiva automática de quantos dias faltam para o seu próximo descanso.
+      </p>
+    </div>
+
+    <!-- Destaque: Próximo Feriado em Tempo Real -->
+    <div id="next-holiday-banner" class="geist-card p-6 sm:p-8 rounded-2xl border border-[var(--led-color)]/30 bg-gradient-to-b from-[var(--bg-elevated)] to-[var(--bg-canvas)] mb-10 text-center shadow-lg">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--led-color)]/10 text-[var(--led-color)] text-xs font-mono-custom uppercase tracking-wider mb-3">
+        <span>Próximo Feriado no Brasil</span>
+        <span>🎉</span>
+      </div>
+      <h2 id="next-holiday-name" class="text-2xl sm:text-4xl font-bold text-[var(--text-ink)] mb-2">
+        Carregando próximo feriado...
+      </h2>
+      <p id="next-holiday-date" class="text-xs sm:text-sm font-mono-custom text-[var(--text-mute)] mb-6">
+        Calculando data oficial...
+      </p>
+
+      <!-- Contador em Dígitos LED -->
+      <div class="flex items-center justify-center gap-3 sm:gap-6 font-mono-custom text-center">
+        <div class="p-3 sm:p-4 rounded-xl bg-[var(--bg-canvas)] border border-[var(--border-hairline)] min-w-[70px] sm:min-w-[90px]">
+          <span id="next-cd-days" class="block text-2xl sm:text-4xl font-bold text-[var(--led-color)]">--</span>
+          <span class="text-[10px] sm:text-xs text-[var(--text-mute)] uppercase">Dias</span>
+        </div>
+        <span class="text-xl sm:text-2xl text-[var(--text-mute)] font-bold">:</span>
+        <div class="p-3 sm:p-4 rounded-xl bg-[var(--bg-canvas)] border border-[var(--border-hairline)] min-w-[70px] sm:min-w-[90px]">
+          <span id="next-cd-hours" class="block text-2xl sm:text-4xl font-bold text-[var(--led-color)]">--</span>
+          <span class="text-[10px] sm:text-xs text-[var(--text-mute)] uppercase">Horas</span>
+        </div>
+        <span class="text-xl sm:text-2xl text-[var(--text-mute)] font-bold">:</span>
+        <div class="p-3 sm:p-4 rounded-xl bg-[var(--bg-canvas)] border border-[var(--border-hairline)] min-w-[70px] sm:min-w-[90px]">
+          <span id="next-cd-mins" class="block text-2xl sm:text-4xl font-bold text-[var(--led-color)]">--</span>
+          <span class="text-[10px] sm:text-xs text-[var(--text-mute)] uppercase">Min</span>
+        </div>
+        <span class="text-xl sm:text-2xl text-[var(--text-mute)] font-bold">:</span>
+        <div class="p-3 sm:p-4 rounded-xl bg-[var(--bg-canvas)] border border-[var(--border-hairline)] min-w-[70px] sm:min-w-[90px]">
+          <span id="next-cd-secs" class="block text-2xl sm:text-4xl font-bold text-[var(--led-color)]">--</span>
+          <span class="text-[10px] sm:text-xs text-[var(--text-mute)] uppercase">Seg</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filtros de Ano e Status -->
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-[var(--border-hairline)]">
+      <div class="flex items-center gap-2">
+        <span class="text-xs text-[var(--text-mute)] font-mono-custom">Filtrar Ano:</span>
+        <button id="btn-filter-all" type="button" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--led-color)] text-black cursor-pointer transition-colors" data-year="all">
+          Todos (2026-2027)
+        </button>
+        <button id="btn-filter-2026" type="button" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--bg-elevated)] text-[var(--text-body)] hover:text-[var(--text-ink)] border border-[var(--border-hairline)] cursor-pointer transition-colors" data-year="2026">
+          2026
+        </button>
+        <button id="btn-filter-2027" type="button" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--bg-elevated)] text-[var(--text-body)] hover:text-[var(--text-ink)] border border-[var(--border-hairline)] cursor-pointer transition-colors" data-year="2027">
+          2027
+        </button>
+      </div>
+
+      <div class="text-xs font-mono-custom text-[var(--text-mute)]">
+        ⏱️ Atualizado com base no relógio do seu dispositivo
+      </div>
+    </div>
+
+    <!-- Grid de Feriados: Brasil e Portugal (Layout em 2 Colunas como na referência) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+      <!-- Coluna Brasil -->
+      <section class="geist-card p-5 sm:p-6 rounded-2xl border border-[var(--border-hairline)] bg-[var(--bg-elevated)] flex flex-col">
+        <div class="flex items-center justify-between pb-4 mb-4 border-b border-[var(--border-hairline)]">
+          <div class="flex items-center gap-2.5">
+            <span class="text-2xl">🇧🇷</span>
+            <div>
+              <h2 class="text-lg sm:text-xl font-bold text-[var(--text-ink)]">
+                Feriados no Brasil
+              </h2>
+              <span class="text-[11px] text-[var(--text-mute)] font-mono-custom">Legislação Federal & MGI</span>
+            </div>
+          </div>
+          <span class="text-xs font-mono-custom text-[var(--text-mute)] bg-[var(--bg-canvas)] px-2.5 py-1 rounded-md border border-[var(--border-hairline)]">
+            Nacionais
+          </span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs sm:text-sm font-mono-custom text-left border-collapse">
+            <thead>
+              <tr class="text-[var(--text-mute)] border-b border-[var(--border-hairline)] text-[11px] uppercase tracking-wider">
+                <th class="py-2.5 px-2">Feriado</th>
+                <th class="py-2.5 px-2">Data</th>
+                <th class="py-2.5 px-2 text-right">Faltam</th>
+              </tr>
+            </thead>
+            <tbody id="table-feriados-brasil" class="divide-y divide-[var(--border-hairline)]">
+              <!-- Renderizado via JavaScript dinâmico -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Coluna Portugal -->
+      <section class="geist-card p-5 sm:p-6 rounded-2xl border border-[var(--border-hairline)] bg-[var(--bg-elevated)] flex flex-col">
+        <div class="flex items-center justify-between pb-4 mb-4 border-b border-[var(--border-hairline)]">
+          <div class="flex items-center gap-2.5">
+            <span class="text-2xl">🇵🇹</span>
+            <div>
+              <h2 class="text-lg sm:text-xl font-bold text-[var(--text-ink)]">
+                Feriados em Portugal
+              </h2>
+              <span class="text-[11px] text-[var(--text-mute)] font-mono-custom">Código do Trabalho de Portugal</span>
+            </div>
+          </div>
+          <span class="text-xs font-mono-custom text-[var(--text-mute)] bg-[var(--bg-canvas)] px-2.5 py-1 rounded-md border border-[var(--border-hairline)]">
+            Nacionais
+          </span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs sm:text-sm font-mono-custom text-left border-collapse">
+            <thead>
+              <tr class="text-[var(--text-mute)] border-b border-[var(--border-hairline)] text-[11px] uppercase tracking-wider">
+                <th class="py-2.5 px-2">Feriado</th>
+                <th class="py-2.5 px-2">Data</th>
+                <th class="py-2.5 px-2 text-right">Faltam</th>
+              </tr>
+            </thead>
+            <tbody id="table-feriados-portugal" class="divide-y divide-[var(--border-hairline)]">
+              <!-- Renderizado via JavaScript dinâmico -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- Seção de Conteúdo Informativo & SEO E-E-A-T -->
+    <div class="space-y-6 text-sm text-[var(--text-body)] leading-relaxed mb-12">
+      <div class="geist-card p-6 sm:p-8 rounded-2xl border border-[var(--border-hairline)]">
+        <h2 class="text-xl font-bold text-[var(--text-ink)] mb-3">
+          Sobre os Feriados Nacionais e Legislação no Brasil
+        </h2>
+        <p class="mb-3">
+          No Brasil, os feriados nacionais são definidos por leis federais (como a Lei nº 662/1949, com alterações da Lei nº 10.607/2002). Em dezembro de 2023, o presidente Luiz Inácio Lula da Silva sancionou a <strong>Lei nº 14.759/2023</strong>, que declarou oficialmente o dia <strong>20 de Novembro (Dia Nacional de Zumbi e da Consciência Negra)</strong> como feriado em todo o território nacional.
+        </p>
+        <p>
+          Além dos feriados obrigatórios, o governo federal publica anualmente no Diário Oficial da União (DOU) a portaria do Ministério da Gestão e da Inovação em Serviços Públicos (MGI) estabelecendo os <strong>pontos facultativos</strong> para a administração pública federal — incluindo datas tradicionais como Carnaval, Quarta-feira de Cinzas e Corpus Christi.
+        </p>
+      </div>
+
+      <!-- FAQ Accordion -->
+      <div class="geist-card p-6 sm:p-8 rounded-2xl border border-[var(--border-hairline)]">
+        <h2 class="text-xl font-bold text-[var(--text-ink)] mb-4">
+          Perguntas Frequentes sobre Feriados
+        </h2>
+        <div class="space-y-4">
+          <div class="border-b border-[var(--border-hairline)] pb-3">
+            <h3 class="font-bold text-[var(--text-ink)] mb-1">Qual é a diferença entre feriado e ponto facultativo?</h3>
+            <p class="text-xs text-[var(--text-mute)]">Feriados são previstos em lei e têm paralisação obrigatória das atividades (salvo serviços essenciais com pagamento em dobro). Pontos facultativos dão ao empregador ou órgão público a opção de liberar os funcionários ou manter o expediente normal.</p>
+          </div>
+          <div class="border-b border-[var(--border-hairline)] pb-3">
+            <h3 class="font-bold text-[var(--text-ink)] mb-1">Carnaval é feriado nacional?</h3>
+            <p class="text-xs text-[var(--text-mute)]">Oficialmente, na esfera federal, a segunda e a terça-feira de Carnaval são pontos facultativos. No entanto, no estado do Rio de Janeiro e em diversas capitais, a terça-feira de Carnaval é decretada feriado por lei estadual ou municipal.</p>
+          </div>
+          <div>
+            <h3 class="font-bold text-[var(--text-ink)] mb-1">Como usar nosso cronômetro para planejar viagens e estudos?</h3>
+            <p class="text-xs text-[var(--text-mute)]">Use o <a href="/" class="text-[var(--led-color)] font-semibold hover:underline">Cronômetro Online</a> e as voltas para cronometrar ciclos de estudo intensivo (Pomodoro) antes dos feriados prolongados para aproveitar seu descanso com as metas em dia.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Retorno ao Cronômetro -->
+    <div class="geist-card p-8 text-center rounded-2xl bg-[var(--bg-canvas)] border border-[var(--border-hairline)] max-w-2xl mx-auto">
+      <h3 class="text-lg sm:text-xl font-bold text-[var(--text-ink)] mb-2">
+        Cronometre seu tempo até o próximo feriado
+      </h3>
+      <p class="text-xs sm:text-sm text-[var(--text-mute)] mb-6">
+        Acesse nosso <strong>cronômetro online grátis</strong> com precisão de milissegundos, atalhos na barra de espaço e registro de voltas.
+      </p>
+      <a 
+        href="/" 
+        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[var(--led-color)] text-black font-bold text-xs sm:text-sm hover:opacity-90 active:scale-[0.98] transition-all shadow-md"
+      >
+        <span>Abrir Cronômetro Digital</span>
+        <span>⏱️</span>
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script is:inline>
+  // Dados Oficiais de Feriados Brasil (2026 & 2027)
+  const feriadosBrasil = [
+    // 2026
+    { name: 'Ano Novo (Confraternização)', date: '2026-01-01', year: 2026 },
+    { name: 'Carnaval (Ponto Facultativo)', date: '2026-02-17', year: 2026 },
+    { name: 'Quarta-feira de Cinzas', date: '2026-02-18', year: 2026 },
+    { name: 'Sexta-feira Santa', date: '2026-04-03', year: 2026 },
+    { name: 'Páscoa', date: '2026-04-05', year: 2026 },
+    { name: 'Tiradentes', date: '2026-04-21', year: 2026 },
+    { name: 'Dia Mundial do Trabalho', date: '2026-05-01', year: 2026 },
+    { name: 'Corpus Christi', date: '2026-06-04', year: 2026 },
+    { name: 'Independência do Brasil', date: '2026-09-07', year: 2026 },
+    { name: 'Nossa Senhora Aparecida', date: '2026-10-12', year: 2026 },
+    { name: 'Dia de Finados', date: '2026-11-02', year: 2026 },
+    { name: 'Proclamação da República', date: '2026-11-15', year: 2026 },
+    { name: 'Dia da Consciência Negra', date: '2026-11-20', year: 2026 },
+    { name: 'Natal', date: '2026-12-25', year: 2026 },
+    // 2027
+    { name: 'Ano Novo (Confraternização)', date: '2027-01-01', year: 2027 },
+    { name: 'Carnaval (Ponto Facultativo)', date: '2027-02-09', year: 2027 },
+    { name: 'Quarta-feira de Cinzas', date: '2027-02-10', year: 2027 },
+    { name: 'Sexta-feira Santa', date: '2027-03-26', year: 2027 },
+    { name: 'Páscoa', date: '2027-03-28', year: 2027 },
+    { name: 'Tiradentes', date: '2027-04-21', year: 2027 },
+    { name: 'Dia Mundial do Trabalho', date: '2027-05-01', year: 2027 },
+    { name: 'Corpus Christi', date: '2027-05-27', year: 2027 },
+    { name: 'Independência do Brasil', date: '2027-09-07', year: 2027 },
+    { name: 'Nossa Senhora Aparecida', date: '2027-10-12', year: 2027 },
+    { name: 'Dia de Finados', date: '2027-11-02', year: 2027 },
+    { name: 'Proclamação da República', date: '2027-11-15', year: 2027 },
+    { name: 'Dia da Consciência Negra', date: '2027-11-20', year: 2027 },
+    { name: 'Natal', date: '2027-12-25', year: 2027 }
+  ];
+
+  // Dados Oficiais de Feriados Portugal (2026 & 2027)
+  const feriadosPortugal = [
+    // 2026
+    { name: 'Ano Novo', date: '2026-01-01', year: 2026 },
+    { name: 'Sexta-feira Santa', date: '2026-04-03', year: 2026 },
+    { name: 'Domingo de Páscoa', date: '2026-04-05', year: 2026 },
+    { name: 'Dia da Liberdade (25 de Abril)', date: '2026-04-25', year: 2026 },
+    { name: 'Dia do Trabalhador', date: '2026-05-01', year: 2026 },
+    { name: 'Corpo de Deus (Corpus Christi)', date: '2026-06-04', year: 2026 },
+    { name: 'Dia de Portugal e de Camões', date: '2026-06-10', year: 2026 },
+    { name: 'Assunção de Nossa Senhora', date: '2026-08-15', year: 2026 },
+    { name: 'Implantação da República', date: '2026-10-05', year: 2026 },
+    { name: 'Dia de Todos os Santos', date: '2026-11-01', year: 2026 },
+    { name: 'Restauração da Independência', date: '2026-12-01', year: 2026 },
+    { name: 'Imaculada Conceição', date: '2026-12-08', year: 2026 },
+    { name: 'Natal', date: '2026-12-25', year: 2026 },
+    // 2027
+    { name: 'Ano Novo', date: '2027-01-01', year: 2027 },
+    { name: 'Sexta-feira Santa', date: '2027-03-26', year: 2027 },
+    { name: 'Domingo de Páscoa', date: '2027-03-28', year: 2027 },
+    { name: 'Dia da Liberdade (25 de Abril)', date: '2027-04-25', year: 2027 },
+    { name: 'Dia do Trabalhador', date: '2027-05-01', year: 2027 },
+    { name: 'Corpo de Deus (Corpus Christi)', date: '2027-05-27', year: 2027 },
+    { name: 'Dia de Portugal e de Camões', date: '2027-06-10', year: 2027 },
+    { name: 'Assunção de Nossa Senhora', date: '2027-08-15', year: 2027 },
+    { name: 'Implantação da República', date: '2027-10-05', year: 2027 },
+    { name: 'Dia de Todos os Santos', date: '2027-11-01', year: 2027 },
+    { name: 'Restauração da Independência', date: '2027-12-01', year: 2027 },
+    { name: 'Imaculada Conceição', date: '2027-12-08', year: 2027 },
+    { name: 'Natal', date: '2027-12-25', year: 2027 }
+  ];
+
+  function formatBRDate(isoDateStr) {
+    const parts = isoDateStr.split('-');
+    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+  }
+
+  function getDaysRemaining(targetDateStr) {
+    const now = new Date();
+    // Normalize to local midnight
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const [y, m, d] = targetDateStr.split('-').map(Number);
+    const target = new Date(y, m - 1, d);
+    const diffMs = target.getTime() - today.getTime();
+    return Math.round(diffMs / (1000 * 60 * 60 * 24));
+  }
+
+  let selectedYearFilter = 'all';
+
+  function renderTable(tbodyId, list) {
+    const tbody = document.getElementById(tbodyId);
+    if (!tbody) return;
+
+    let filtered = list;
+    if (selectedYearFilter !== 'all') {
+      const yr = parseInt(selectedYearFilter, 10);
+      filtered = list.filter((item) => item.year === yr);
+    }
+
+    // Sort chronologically
+    filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    tbody.innerHTML = '';
+    filtered.forEach((item) => {
+      const days = getDaysRemaining(item.date);
+      const row = document.createElement('tr');
+      row.className = 'hover:bg-[var(--bg-canvas)] transition-colors';
+
+      let daysLabel = '';
+      let daysClass = 'text-[var(--text-mute)]';
+
+      if (days < 0) {
+        daysLabel = 'Passou';
+        daysClass = 'text-[var(--text-mute)] opacity-50 line-through';
+      } else if (days === 0) {
+        daysLabel = 'Hoje! 🎉';
+        daysClass = 'text-emerald-400 font-bold';
+      } else if (days === 1) {
+        daysLabel = 'Amanhã';
+        daysClass = 'text-[var(--led-color)] font-bold';
+      } else {
+        daysLabel = `${days} dias`;
+        if (days <= 30) {
+          daysClass = 'text-[var(--led-color)] font-semibold';
+        }
+      }
+
+      row.innerHTML = `
+        <td class="py-2.5 px-2 font-medium text-[var(--text-ink)]">${item.name}</td>
+        <td class="py-2.5 px-2 text-[var(--text-mute)]">${formatBRDate(item.date)}</td>
+        <td class="py-2.5 px-2 text-right ${daysClass}">${daysLabel}</td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  // Atualiza Banner do Próximo Feriado no Brasil com contagem regressiva em tempo real
+  function updateNextHolidayCountdown() {
+    const now = new Date();
+    // Acha o primeiro feriado do Brasil cuja data seja >= hoje
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const upcoming = feriadosBrasil
+      .filter((item) => {
+        const [y, m, d] = item.date.split('-').map(Number);
+        return new Date(y, m - 1, d) >= today;
+      })
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    if (upcoming.length === 0) return;
+    const nextHoli = upcoming[0];
+
+    const nameEl = document.getElementById('next-holiday-name');
+    const dateEl = document.getElementById('next-holiday-date');
+    if (nameEl) nameEl.textContent = nextHoli.name;
+    if (dateEl) dateEl.textContent = `Data: ${formatBRDate(nextHoli.date)} • Feriado Nacional`;
+
+    const [y, m, d] = nextHoli.date.split('-').map(Number);
+    const targetMidnight = new Date(y, m - 1, d, 0, 0, 0);
+
+    function tick() {
+      const current = new Date();
+      const diff = targetMidnight.getTime() - current.getTime();
+
+      const daysEl = document.getElementById('next-cd-days');
+      const hoursEl = document.getElementById('next-cd-hours');
+      const minsEl = document.getElementById('next-cd-mins');
+      const secsEl = document.getElementById('next-cd-secs');
+
+      if (diff <= 0) {
+        if (daysEl) daysEl.textContent = '00';
+        if (hoursEl) hoursEl.textContent = '00';
+        if (minsEl) minsEl.textContent = '00';
+        if (secsEl) secsEl.textContent = '00';
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const mins = Math.floor((diff / (1000 * 60)) % 60);
+      const secs = Math.floor((diff / 1000) % 60);
+
+      if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+      if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+      if (minsEl) minsEl.textContent = String(mins).padStart(2, '0');
+      if (secsEl) secsEl.textContent = String(secs).padStart(2, '0');
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  }
+
+  function initFeriados() {
+    renderTable('table-feriados-brasil', feriadosBrasil);
+    renderTable('table-feriados-portugal', feriadosPortugal);
+    updateNextHolidayCountdown();
+
+    // Filtros de ano
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach((b) => {
+          b.classList.remove('bg-[var(--led-color)]', 'text-black');
+          b.classList.add('bg-[var(--bg-elevated)]', 'text-[var(--text-body)]', 'border');
+        });
+        btn.classList.add('bg-[var(--led-color)]', 'text-black');
+        btn.classList.remove('bg-[var(--bg-elevated)]', 'text-[var(--text-body)]', 'border');
+
+        selectedYearFilter = btn.getAttribute('data-year');
+        renderTable('table-feriados-brasil', feriadosBrasil);
+        renderTable('table-feriados-portugal', feriadosPortugal);
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFeriados);
+  } else {
+    initFeriados();
+  }
+</script>

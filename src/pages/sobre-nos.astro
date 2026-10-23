@@ -2,12 +2,49 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+
+const aboutSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Início",
+        "item": "https://cronometrodigital.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Sobre Nós",
+        "item": "https://cronometrodigital.com/sobre-nos"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "Sobre o Cronômetro Digital",
+    "url": "https://cronometrodigital.com/sobre-nos",
+    "description": "Conheça a história, missão e arquitetura de precisão do Cronômetro Digital — o cronômetro online líder para o Brasil.",
+    "inLanguage": "pt-BR",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Cronômetro Digital",
+      "url": "https://cronometrodigital.com/",
+      "logo": "https://cronometrodigital.com/favicon-96x96.png",
+      "email": "lifeturningpoint007@gmail.com"
+    }
+  }
+];
 ---
 
 <Layout 
   title="Sobre Nós | Cronômetro Digital — cronometrodigital.com" 
   description="Conheça o Cronômetro Digital, o cronômetro online gratuito e de alta precisão para esportes, estudo, jogos e produtividade. Feito para o Brasil e países de língua portuguesa."
   canonicalPath="/sobre-nos"
+  schema={aboutSchema}
 >
   <Navbar />
 
@@ -34,32 +71,32 @@ import Footer from '../components/Footer.astro';
           No <strong>Cronômetro Digital</strong> (<code class="font-mono-custom text-xs bg-[var(--bg-canvas)] px-1.5 py-0.5 rounded">cronometrodigital.com</code>), nossa missão é simples: oferecer um <strong>cronômetro online</strong> moderno, confiável e gratuito que funciona instantaneamente em qualquer dispositivo, sem pop-ups irritantes ou instalações complexas.
         </p>
         <p>
-          Acreditamos que ferramentas de cronometragem devem ser rápidas, elegantes e precisas ao milésimo de segundo. É por isso que desenvolvemos o <strong>Cronômetro Digital</strong> usando tecnologias web modernas, focado em performance e simplicidade.
+          Acreditamos que ferramentas de cronometragem devem ser rápidas, elegantes e precisas ao milésimo de segundo. É por isso que desenvolvemos o <strong>Cronômetro Digital</strong> usando tecnologias web modernas, focado em performance, acessibilidade e respeito aos dados do usuário.
         </p>
       </div>
 
-      <!-- Seção 2: Recursos -->
+      <!-- Seção 2: Recursos Principais -->
       <div class="geist-card p-6 sm:p-8">
         <h2 class="text-xl font-bold text-[var(--text-ink)] mb-4">Por Que Usar o Cronômetro Digital?</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div class="p-4 rounded-lg bg-[var(--bg-canvas)] border border-[var(--border-hairline)]">
             <h3 class="font-bold text-[var(--text-ink)] mb-1">⚡ Precisão Sub-Milissegundo</h3>
-            <p class="text-xs text-[var(--text-mute)]">Calcula o tempo decorrido via timestamps de alta resolução do navegador (<code class="font-mono-custom text-[11px]">performance.now()</code>) com zero deriva de tempo.</p>
+            <p class="text-xs text-[var(--text-mute)]">Calcula o tempo decorrido via timestamps de alta resolução do navegador (<code class="font-mono-custom text-[11px]">performance.now()</code>) com zero deriva de tempo, mesmo com a aba em segundo plano.</p>
           </div>
 
           <div class="p-4 rounded-lg bg-[var(--bg-canvas)] border border-[var(--border-hairline)]">
             <h3 class="font-bold text-[var(--text-ink)] mb-1">📊 Análise Avançada de Voltas</h3>
-            <p class="text-xs text-[var(--text-mute)]">Registre divisões de volta, destaque as voltas mais rápidas e lentas, compare tempos delta e exporte o histórico para CSV ou área de transferência.</p>
+            <p class="text-xs text-[var(--text-mute)]">Registre divisões de volta, destaque automático das voltas mais rápidas e lentas, compare tempos delta e exporte o histórico para planilha CSV.</p>
           </div>
 
           <div class="p-4 rounded-lg bg-[var(--bg-canvas)] border border-[var(--border-hairline)]">
-            <h3 class="font-bold text-[var(--text-ink)] mb-1">⌨️ Controles por Atalho</h3>
+            <h3 class="font-bold text-[var(--text-ink)] mb-1">⌨️ Controles por Atalho de Teclado</h3>
             <p class="text-xs text-[var(--text-mute)]">Controle tudo via barra de espaço, L para volta, R para resetar e F para tela cheia. Cronometragem sem tirar as mãos do teclado.</p>
           </div>
 
           <div class="p-4 rounded-lg bg-[var(--bg-canvas)] border border-[var(--border-hairline)]">
             <h3 class="font-bold text-[var(--text-ink)] mb-1">🔒 Privacidade & Tema Escuro</h3>
-            <p class="text-xs text-[var(--text-mute)]">Sem rastreamento de usuário, sem anúncios invasivos e opções de modo escuro de alto contraste #000000.</p>
+            <p class="text-xs text-[var(--text-mute)]">Sem rastreamento invasivo de dados pessoais, sem anúncios intrusivos e opções de modo escuro de alto contraste #000000.</p>
           </div>
         </div>
       </div>
@@ -67,21 +104,32 @@ import Footer from '../components/Footer.astro';
       <!-- Seção 3: Para quem é -->
       <div class="geist-card p-6 sm:p-8">
         <h2 class="text-xl font-bold text-[var(--text-ink)] mb-3">Para Quem é o Cronômetro Digital?</h2>
-        <p class="mb-3">O nosso <strong>cronômetro online</strong> foi criado para todos:</p>
+        <p class="mb-3">O nosso <strong>cronômetro online</strong> foi criado para atender múltiplos cenários do dia a dia:</p>
         <ul class="list-disc pl-5 space-y-2 text-xs text-[var(--text-mute)]">
-          <li><strong>Estudantes</strong> — Use como <strong>cronômetro de estudo</strong> com a técnica Pomodoro para maximizar o foco.</li>
-          <li><strong>Atletas</strong> — Registre voltas de corrida, natação, HIIT e ciclismo com precisão máxima.</li>
-          <li><strong>Speedcubers</strong> — O melhor <strong>cronômetro para cubo mágico</strong> online, gratuito e sem instalação.</li>
-          <li><strong>Gamers</strong> — Meça speedruns e desafios competitivos com precisão de milissegundos.</li>
-          <li><strong>Profissionais</strong> — Controle o tempo de reuniões, tarefas e intervalos de trabalho.</li>
+          <li><strong>Estudantes e Concurseiros</strong> — Use como <strong>cronômetro de estudo</strong> aplicando a técnica Pomodoro para ciclos produtivos de 25 minutos.</li>
+          <li><strong>Atletas e Treinadores</strong> — Registre voltas de corrida de rua, natação, treinos HIIT, crossfit e ciclismo com alta fidelidade.</li>
+          <li><strong>Speedcubers</strong> — O melhor <strong>cronômetro para cubo mágico</strong> online, gratuito, com atalhos responsivos e sem atrasos.</li>
+          <li><strong>Gamers e Criadores de Conteúdo</strong> — Meça speedruns e desafios competitivos com precisão de milissegundos.</li>
+          <li><strong>Profissionais em Home Office</strong> — Controle o tempo de reuniões, apresentações e intervalos de descanso ativo.</li>
         </ul>
       </div>
 
-      <!-- Seção 4: Contato -->
+      <!-- Seção 4: Compromisso com a Qualidade Técnica -->
+      <div class="geist-card p-6 sm:p-8">
+        <h2 class="text-xl font-bold text-[var(--text-ink)] mb-3">Compromisso com Padrões Web e Acessibilidade</h2>
+        <p class="mb-3">
+          A plataforma foi desenvolvida utilizando a moderna arquitetura Astro, entregando páginas estáticas ultrarrápidas com Core Web Vitals nota máxima e consumo mínimo de bateria no seu dispositivo móvel.
+        </p>
+        <p class="text-xs text-[var(--text-mute)]">
+          Projetada especialmente para a comunidade lusófona, oferecendo suporte nativo ao público brasileiro e usuários de língua portuguesa em todo o mundo.
+        </p>
+      </div>
+
+      <!-- Seção 5: Contato -->
       <div class="geist-card p-6 sm:p-8">
         <h2 class="text-xl font-bold text-[var(--text-ink)] mb-2">Entre em Contato</h2>
         <p>
-          Tem sugestões ou feedback? Visite nossa <a href="/contato" class="text-[var(--led-color)] font-semibold hover:underline">página de Contato</a> para falar com nossa equipe.
+          Tem sugestões de novos recursos, feedback técnico ou dúvidas de privacidade? Visite nossa <a href="/contato" class="text-[var(--led-color)] font-semibold hover:underline">página de Contato</a> ou escreva diretamente para <a href="mailto:lifeturningpoint007@gmail.com" class="text-[var(--led-color)] font-semibold hover:underline">lifeturningpoint007@gmail.com</a>.
         </p>
       </div>
     </div>

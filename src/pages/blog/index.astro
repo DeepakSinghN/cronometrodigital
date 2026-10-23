@@ -1,0 +1,139 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+const blogSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Início",
+        "item": "https://cronometrodigital.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://cronometrodigital.com/blog"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Blog do Cronômetro Digital | Guias de Foco, Produtividade e Esportes",
+    "url": "https://cronometrodigital.com/blog",
+    "description": "Artigos práticos, guias da técnica Pomodoro, treinos esportivos e speedcubing com o cronômetro online de alta precisão.",
+    "inLanguage": "pt-BR"
+  }
+];
+
+const articles = [
+  {
+    title: "Como Usar a Técnica Pomodoro com Cronômetro Online: Guia para Estudos",
+    slug: "tecnica-pomodoro-com-cronometro-guia-estudos",
+    description: "Aprenda a aplicar a técnica Pomodoro nos estudos para vestibulares, ENEM e concursos públicos. Registre voltas e maximize seu foco diário com o cronômetro online.",
+    category: "Produtividade & Estudos",
+    date: "23 de Outubro de 2026",
+    readTime: "5 min de leitura",
+    badge: "Guia Completo"
+  },
+  {
+    title: "Cronômetro para Cubo Mágico Online: Como Medir Tempos no Speedcubing",
+    slug: "cronometro-para-cubo-magico-speedcubing",
+    description: "Descubra como treinar cubo mágico com precisão de milissegundos. Aprenda sobre inspeção de 15 segundos da WCA, cálculo de Ao5 e atalhos na barra de espaço.",
+    category: "Speedcubing & Jogos",
+    date: "23 de Outubro de 2026",
+    readTime: "6 min de leitura",
+    badge: "Dicas de Treino"
+  }
+];
+---
+
+<Layout
+  title="Blog do Cronômetro Digital | Dicas de Pomodoro, Treinos e Speedcubing"
+  description="Guias gratuitos sobre técnica Pomodoro para estudos, speedcubing com cubo mágico, treinos esportivos e controle de tempo com o cronômetro online."
+  canonicalPath="/blog"
+  schema={blogSchema}
+>
+  <Navbar />
+
+  <main class="w-full flex-1 max-w-5xl mx-auto px-4 py-12">
+    <!-- Cabeçalho do Blog -->
+    <div class="mb-12 text-center">
+      <span class="font-mono-custom text-xs uppercase tracking-widest text-[var(--text-mute)] bg-[var(--bg-elevated)] px-3.5 py-1.5 rounded-full border border-[var(--border-hairline)] mb-4 inline-block">
+        CONTEÚDO & GUIAS PRÁTICOS
+      </span>
+      <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-[var(--text-ink)] mb-4">
+        Blog do Cronômetro Digital
+      </h1>
+      <p class="text-sm sm:text-base text-[var(--text-body)] max-w-2xl mx-auto leading-relaxed">
+        Descubra como aproveitar ao máximo cada segundo: métodos comprovados de foco, gestão de tempo nos estudos, esportes e cubo mágico com nosso <strong>cronômetro online gratuito</strong>.
+      </p>
+    </div>
+
+    <!-- Grid de Artigos -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+      {articles.map((post) => (
+        <article class="geist-card p-6 sm:p-8 flex flex-col justify-between hover:border-[var(--led-color)] transition-all group rounded-2xl border border-[var(--border-hairline)] bg-[var(--bg-elevated)]">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <span class="font-mono-custom text-[11px] font-semibold uppercase tracking-wider text-[var(--led-color)] bg-[var(--led-color)]/10 px-2.5 py-1 rounded-md">
+                {post.category}
+              </span>
+              <span class="text-xs text-[var(--text-mute)] font-mono-custom">
+                {post.readTime}
+              </span>
+            </div>
+
+            <h2 class="text-xl sm:text-2xl font-bold text-[var(--text-ink)] group-hover:text-[var(--led-color)] transition-colors mb-3 leading-snug">
+              <a href={`/blog/${post.slug}`}>
+                {post.title}
+              </a>
+            </h2>
+
+            <p class="text-xs sm:text-sm text-[var(--text-body)] leading-relaxed mb-6">
+              {post.description}
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-[var(--border-hairline)] flex items-center justify-between text-xs">
+            <span class="text-[var(--text-mute)] font-mono-custom">
+              {post.date}
+            </span>
+            <a 
+              href={`/blog/${post.slug}`} 
+              class="font-semibold text-[var(--text-ink)] group-hover:text-[var(--led-color)] flex items-center gap-1.5 transition-colors"
+            >
+              <span>Ler artigo completo</span>
+              <span class="group-hover:translate-x-1 transition-transform">→</span>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Card de Ação Rápida: Abrir Cronômetro -->
+    <div class="p-8 rounded-2xl border border-[var(--border-hairline)] bg-[var(--bg-canvas)] text-center max-w-2xl mx-auto">
+      <h3 class="text-lg sm:text-xl font-bold text-[var(--text-ink)] mb-2">
+        Pronto para cronometrar suas tarefas?
+      </h3>
+      <p class="text-xs sm:text-sm text-[var(--text-mute)] mb-6">
+        Use nosso <strong>cronômetro online</strong> com milissegundos, atalhos de teclado e análise de voltas. 100% gratuito e sem cadastro.
+      </p>
+      <a 
+        href="/" 
+        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[var(--led-color)] text-black font-bold text-xs sm:text-sm hover:opacity-90 active:scale-[0.98] transition-all shadow-md"
+      >
+        <span>Abrir Cronômetro Online Grátis</span>
+        <span>⏱️</span>
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
